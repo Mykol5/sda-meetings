@@ -330,6 +330,6 @@ async function start(){
 document.getElementById('audioUnlock').onclick=()=>resumeRemoteAudio();
 document.addEventListener('pointerdown',()=>{void resumeRemoteAudio()},{passive:true});
 document.addEventListener('touchend',()=>{void resumeRemoteAudio()},{passive:true});
-initBiblePickers();start().catch(e=>{connection.textContent='Connection failed';document.getElementById('failureText').textContent=e.message;document.getElementById('failure').classList.remove('hidden')});
+start().catch(e=>{connection.textContent='Connection failed';document.getElementById('failureText').textContent=e.message;document.getElementById('failure').classList.remove('hidden')});
 </script>
 </body></html>
