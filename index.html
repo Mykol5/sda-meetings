@@ -23,13 +23,13 @@ main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,34px) clamp(14px,3vw,30
 .dialog-actions{display:flex;gap:9px}.dialog-actions button{flex:1;min-height:44px;border-radius:12px;border:1px solid #493b5a;background:#292333;color:#e9e1f3;font-size:12px;font-weight:800;cursor:pointer}
 .dialog-actions button.primary{border-color:#9b6bd0;background:linear-gradient(110deg,#8b3dff,#6e32c8);color:#fff}
 .dialog-actions button.destructive{border-color:#bd465e;background:linear-gradient(110deg,#d83e5b,#a51e3a);color:#fff}
-\n@media(max-width:520px){.controls{gap:clamp(9px,3vw,16px);padding:10px 8px max(13px,env(safe-area-inset-bottom))}.control{min-width:54px;gap:6px}.control .control-icon{width:49px;height:49px;border-radius:17px}.control .control-label{font-size:9px}}
+@media(max-width:520px){.controls{gap:clamp(9px,3vw,16px);padding:10px 8px max(13px,env(safe-area-inset-bottom))}.control{min-width:54px;gap:6px}.control .control-icon{width:49px;height:49px;border-radius:17px}.control .control-label{font-size:9px}}
 @media(min-width:900px){.stage-shell{padding:16px}.grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.tile{min-height:245px}}
 @media(max-width:520px){body{padding-bottom:104px}header{height:56px}.title{align-items:flex-start}.title h1{font-size:22px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{min-height:150px;aspect-ratio:4/5;border-radius:14px}.avatar{width:52px;height:52px;border-radius:18px}.tile.has-video .avatar{display:none}.name{font-size:10px;padding:23px 9px 9px}.stage-shell{padding:8px;border-radius:17px}.panel{padding:14px}.controls{gap:7px;padding:10px 8px max(12px,env(safe-area-inset-bottom))}.controls button{min-width:0;flex:1;padding:12px 8px;font-size:10px;border-radius:12px}}
 </style>
 </head>
 <body>
-<header><div class="brand">SWORD DRILL <span>ARENA</span></div><div class="status" id="connection">Connecting…</div></header>
+<header><div class="brand">SDA <span>MEETINGS</span></div><div class="status" id="connection">Connecting…</div></header>
 <main id="app" class="hidden">
  <div class="title"><div><div class="room-tag">PRIVATE SDA ROOM</div><h1 id="meetingTitle">SDA Meeting</h1><div class="muted" id="meetingMeta">Live audio room</div></div><div class="muted" id="count">0 participants</div></div>
  <section class="stage-shell"><div class="grid" id="videoGrid"></div></section>
@@ -128,10 +128,14 @@ function returnToSda(){
  document.getElementById('endMessage').textContent='You can close this browser tab to return to SDA.';
 }
 function updateControl(button,enabled,onLabel,offLabel,enabledIcon,disabledIcon){
- button.classList.toggle('active',enabled);button.setAttribute('aria-pressed',String(enabled));
+ if(!button)return;
+ button.classList.toggle('active',enabled);
+ button.setAttribute('aria-pressed',String(enabled));
  button.setAttribute('aria-label',enabled?offLabel:onLabel);
- button.querySelector('.control-label').textContent=enabled?offLabel:onLabel;
- button.querySelector('svg').innerHTML=enabled?enabledIcon:disabledIcon;
+ const label=button.querySelector('.control-label');
+ const icon=button.querySelector('.control-icon svg');
+ if(label)label.textContent=enabled?offLabel:onLabel;
+ if(icon)icon.innerHTML=enabled?enabledIcon:disabledIcon;
 }
 document.getElementById('mic').onclick=async()=>{const button=document.getElementById('mic');button.disabled=true;try{const next=!micOn;await room.localParticipant.setMicrophoneEnabled(next);micOn=next;updateControl(button,micOn,'Unmute','Mute',
  '<path d="M12 2.75a3.25 3.25 0 0 0-3.25 3.25v5a3.25 3.25 0 0 0 6.5 0V6A3.25 3.25 0 0 0 12 2.75Z"/><path d="M5.5 10.5v.5a6.5 6.5 0 0 0 13 0v-.5M12 17.5v4M8.5 21.5h7"/>',
