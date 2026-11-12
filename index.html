@@ -67,7 +67,7 @@ main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,34px) clamp(14px,3vw,30
   <div class="dialog-actions" id="sdaDialogActions"></div>
  </div>
 </section>
-\n<script type="module">
+<script type="module">
 import { Room, RoomEvent, Track } from 'https://esm.sh/livekit-client@2.15.6';
 const q=new URLSearchParams(location.hash.slice(1));
 const token=q.get('token'),serverUrl=q.get('serverUrl'),roomName=q.get('roomName'),title=q.get('title')||'SDA Meeting';
@@ -165,7 +165,7 @@ async function start(){
  // Do not request camera capture automatically on page load. The host starts
  // video from the visible button after joining, which gives the browser a clear
  // user action and makes permission failures recoverable without losing audio.
- if(isHost){document.getElementById('camera').textContent='📷 Start video'}
+ // Preserve the camera button's SVG and label; updateControl() updates the label safely.
 }
 start().catch(e=>{connection.textContent='Connection failed';document.getElementById('failureText').textContent=e.message;document.getElementById('failure').classList.remove('hidden')});
 </script>
