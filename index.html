@@ -10,11 +10,11 @@ body{min-height:100vh;padding-bottom:110px}header{height:64px;padding:0 clamp(16
 .brand{font-weight:950;letter-spacing:.11em;font-size:11px}.brand span{color:var(--lilac)}.status{font-size:10px;color:#9de7c8;background:#14251f;border:1px solid #29483b;border-radius:30px;padding:7px 11px;letter-spacing:.04em}
 main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,34px) clamp(14px,3vw,30px) 30px}.title{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:22px}.title h1{font-size:clamp(21px,4vw,32px);letter-spacing:-.04em;margin:0 0 7px;font-weight:900}.muted{color:var(--muted);font-size:11px}.room-tag{display:inline-flex;align-items:center;gap:7px;color:#d8c3f6;font-size:9px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;margin-bottom:9px}.room-tag:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 12px #45d6a0}
 #count{color:#e6d9f7;background:#21182e;border:1px solid #443158;padding:9px 12px;border-radius:12px;font-size:11px;font-weight:800;white-space:nowrap}
-.stage-shell{background:linear-gradient(145deg,#1a1425,#100e18);border:1px solid var(--line);border-radius:22px;padding:12px;box-shadow:0 22px 70px #0005}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}.tile{background:radial-gradient(circle at 50% 35%,#342348,#191522 68%);border:1px solid #3b304a;border-radius:17px;overflow:hidden;min-height:210px;aspect-ratio:16/10;position:relative;display:flex;align-items:center;justify-content:center}.tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#08070d}.avatar{width:66px;height:66px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#513174,#2a1d3b);border:1px solid #7954a0;color:#f0e5ff;font-size:22px;font-weight:900;box-shadow:0 10px 30px #0005}.name{position:absolute;bottom:0;left:0;right:0;padding:26px 13px 12px;background:linear-gradient(transparent,#08070bf0);font-size:11px;font-weight:800;z-index:1}.you{position:absolute;top:11px;left:11px;background:#25143a;border:1px solid #54366f;padding:6px 9px;border-radius:20px;font-size:9px;color:#e3d1fa;z-index:2}
+.stage-shell{background:linear-gradient(145deg,#1a1425,#100e18);border:1px solid var(--line);border-radius:22px;padding:12px;box-shadow:0 22px 70px #0005}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}.tile{background:radial-gradient(circle at 50% 35%,#342348,#191522 68%);border:1px solid #3b304a;border-radius:17px;overflow:hidden;min-height:210px;aspect-ratio:16/10;position:relative;display:flex;align-items:center;justify-content:center}.tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#08070d}.tile.has-video .avatar{display:none}.avatar{width:66px;height:66px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#513174,#2a1d3b);border:1px solid #7954a0;color:#f0e5ff;font-size:22px;font-weight:900;box-shadow:0 10px 30px #0005}.name{position:absolute;bottom:0;left:0;right:0;padding:26px 13px 12px;background:linear-gradient(transparent,#08070bf0);font-size:11px;font-weight:800;z-index:1}.you{position:absolute;top:11px;left:11px;background:#25143a;border:1px solid #54366f;padding:6px 9px;border-radius:20px;font-size:9px;color:#e3d1fa;z-index:2}
 .panel{margin-top:16px;padding:17px 18px;background:var(--panel);border:1px solid var(--line);border-radius:18px}.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.panel h2{font-size:13px;margin:0;font-weight:900}.small{font-size:10px;color:var(--muted)}.person{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #2a2435;gap:10px}.person:last-child{border:0}.person strong{font-size:11px}.person-actions{display:flex;gap:7px;flex-wrap:wrap}.person button{padding:7px 10px;font-size:9px}.person-status{font-size:9px;color:var(--muted);margin-top:4px}.error{max-width:480px;margin:70px auto;padding:26px;background:var(--panel);border:1px solid var(--line);border-radius:20px;text-align:center}.hidden{display:none}
 .controls{position:fixed;bottom:0;left:0;right:0;padding:14px 12px max(15px,env(safe-area-inset-bottom));background:#100e17ed;border-top:1px solid #30263f;backdrop-filter:blur(20px);display:flex;justify-content:center;align-items:center;gap:9px;z-index:8;flex-wrap:wrap}.controls button{min-width:104px;border:1px solid #42374f;border-radius:13px;padding:12px 15px;background:#25202e;color:#f8f6fc;font-weight:800;font-size:11px;cursor:pointer;transition:.18s}.controls button:hover{background:#342743;border-color:#74519a}.controls button.primary{background:var(--purple);border-color:var(--purple)}.controls button.danger{background:#8f293b;border-color:#a83b4d}.controls button:disabled{opacity:.45}
 @media(min-width:900px){.stage-shell{padding:16px}.grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.tile{min-height:245px}}
-@media(max-width:520px){body{padding-bottom:104px}header{height:56px}.title{align-items:flex-start}.title h1{font-size:22px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{min-height:150px;aspect-ratio:4/5;border-radius:14px}.avatar{width:52px;height:52px;border-radius:18px}.name{font-size:10px;padding:23px 9px 9px}.stage-shell{padding:8px;border-radius:17px}.panel{padding:14px}.controls{gap:7px;padding:10px 8px max(12px,env(safe-area-inset-bottom))}.controls button{min-width:0;flex:1;padding:12px 8px;font-size:10px;border-radius:12px}}
+@media(max-width:520px){body{padding-bottom:104px}header{height:56px}.title{align-items:flex-start}.title h1{font-size:22px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{min-height:150px;aspect-ratio:4/5;border-radius:14px}.avatar{width:52px;height:52px;border-radius:18px}.tile.has-video .avatar{display:none}.name{font-size:10px;padding:23px 9px 9px}.stage-shell{padding:8px;border-radius:17px}.panel{padding:14px}.controls{gap:7px;padding:10px 8px max(12px,env(safe-area-inset-bottom))}.controls button{min-width:0;flex:1;padding:12px 8px;font-size:10px;border-radius:12px}}
 </style>
 </head>
 <body>
@@ -24,7 +24,6 @@ main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,34px) clamp(14px,3vw,30
  <section class="stage-shell"><div class="grid" id="videoGrid"></div></section>
  <section class="panel"><div class="panel-head"><h2>People in this meeting</h2><span class="small">SDA MEMBERS</span></div><div id="people"></div></section>
 </main>
-<div id="mediaFallback" class="error hidden"><h2>Microphone or camera unavailable in this in-app view</h2><p class="muted">Android Expo Go may block media capture inside its embedded WebView. Continue this same meeting in Chrome to use your microphone and camera.</p><button class="primary" id="openExternal">Continue in Chrome</button></div>
 <div id="failure" class="error hidden"><h2>Unable to join this meeting</h2><p class="muted" id="failureText">The meeting link may have expired.</p><button onclick="location.reload()" class="primary">Try again</button></div>
 <div class="controls hidden" id="controls">
  <button id="mic">🎙 Unmute</button><button id="camera" class="hidden">📷 Start video</button><button id="leave" class="danger">Leave meeting</button><button id="end" class="danger hidden">End for everyone</button>
@@ -36,95 +35,40 @@ const token=q.get('token'),serverUrl=q.get('serverUrl'),roomName=q.get('roomName
 const isHost=q.get('isHost')==='true',api=q.get('api'),meetingId=q.get('meetingId'),supabaseUrl=q.get('supabaseUrl'),anon=q.get('supabaseAnonKey');
 const connection=document.getElementById('connection'),grid=document.getElementById('videoGrid'),people=document.getElementById('people');
 const controls=document.getElementById('controls'),app=document.getElementById('app');
-function showMediaFallback(){document.getElementById('mediaFallback').classList.remove('hidden');}
-document.getElementById('openExternal')?.addEventListener('click',()=>{window.ReactNativeWebView?.postMessage(JSON.stringify({type:'SDA_OPEN_EXTERNAL_BROWSER'}));});
 let room, micOn=false, cameraOn=false;
 document.getElementById('meetingTitle').textContent=title;
 document.getElementById('meetingMeta').textContent=isHost?'You are the host · Only host video is enabled':'SDA members · Audio participation';
 document.getElementById('camera').classList.toggle('hidden',!isHost);
 document.getElementById('end').classList.toggle('hidden',!isHost);
 function tile(identity,name,local=false){let el=document.getElementById('tile-'+identity);if(!el){el=document.createElement('div');el.className='tile';el.id='tile-'+identity;el.innerHTML=`<div class="avatar">${(name||'S').trim().charAt(0).toUpperCase()}</div><div class="name"></div>`;grid.append(el)}el.querySelector('.name').textContent=(name||identity)+(local?' · You':'');return el}
-function addTrack(track,identity,name,local=false){
- const el=tile(identity,name,local);
- const node=track.attach();
- if(track.kind==='video'){
-  node.autoplay=true;node.playsInline=true;node.muted=local;
-  node.style.position='absolute';node.style.inset='0';node.style.width='100%';node.style.height='100%';node.style.objectFit='cover';
-  el.querySelector('video')?.remove();el.prepend(node);
-  const avatar=el.querySelector('.avatar');if(avatar)avatar.style.display='none';
-  node.play?.().catch(()=>{});
- }else{
-  node.autoplay=true;node.playsInline=true;node.style.display='none';node.muted=false;el.append(node);
-  node.play?.().catch(()=>{});
- }
-}
-function attachExistingLocalTracks(){
- const local=room.localParticipant;
- for(const pub of local.trackPublications.values()){
-  if(pub.track)addTrack(pub.track,local.identity,local.name||'You',true);
- }
-}
+function addTrack(track,identity,name,local=false){if(local&&track.kind==='audio')return;const el=tile(identity,name,local);const node=track.attach();if(track.kind==='video'){node.autoplay=true;node.playsInline=true;node.muted=local;el.classList.add('has-video');el.querySelector('video')?.remove();el.prepend(node);const play=node.play?.();if(play?.catch)play.catch(()=>{})}else{node.autoplay=true;node.style.display='none';el.append(node);const play=node.play?.();if(play?.catch)play.catch(()=>{})}}
 function renderPeople(){people.innerHTML='';const participants=[room.localParticipant,...room.remoteParticipants.values()];document.getElementById('count').textContent=participants.length+' participants';participants.forEach(p=>{const row=document.createElement('div');row.className='person';const label=document.createElement('div');label.innerHTML=`<strong></strong><div class="person-status"></div>`;label.querySelector('strong').textContent=p.name||p.identity;label.querySelector('.person-status').textContent=(p.identity===room.localParticipant.identity?'You':'SDA member')+' · '+(p.isMicrophoneEnabled?'Mic on':'Muted');row.append(label);if(isHost&&p.identity!==room.localParticipant.identity){const actions=document.createElement('div');actions.className='person-actions';const b=document.createElement('button');b.textContent='Mute';b.onclick=()=>muteParticipant(p.identity);const req=document.createElement('button');req.textContent='Request unmute';req.onclick=()=>requestUnmute(p.identity);actions.append(b,req);row.append(actions)}people.append(row)})}
 async function requestUnmute(identity){try{const payload=new TextEncoder().encode(JSON.stringify({type:'sda-unmute-request',from:room.localParticipant.identity}));await room.localParticipant.publishData(payload,{reliable:true,destinationIdentities:[identity]});alert('Unmute request sent. The member must approve it.')}catch(e){alert('Could not send request: '+e.message)}}
 async function muteParticipant(identity){try{const r=await fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'mute',meetingId,targetIdentity:identity})});const d=await r.json();if(!r.ok)throw Error(d.error||'Could not mute participant');}catch(e){alert(e.message)}}
 async function leave(end=false){try{if(end&&isHost){await fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'end',meetingId})})}else{await fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'leave',meetingId})})}}finally{room?.disconnect();connection.textContent='Disconnected';document.getElementById('controls').classList.add('hidden');setTimeout(()=>{window.close();document.body.innerHTML='<div class="error"><h2>Meeting ended</h2><p class="muted">You can return to Sword Drill Arena.</p></div>'},250)}}
-document.getElementById('mic').onclick=async()=>{
- const button=document.getElementById('mic');button.disabled=true;
- try{
-  const next=!micOn;
-  if(next){
-   if(!navigator.mediaDevices?.getUserMedia)throw new Error('This in-app browser cannot access the microphone. Check SDA microphone permission or open the meeting in Chrome.');
-   await room.localParticipant.setMicrophoneEnabled(true);
-  }else{
-   await room.localParticipant.setMicrophoneEnabled(false);
-  }
-  micOn=next;button.textContent=micOn?'🎙 Mute':'🎙 Unmute';renderPeople();
- }catch(e){
-  const message=e?.message||'Microphone could not be enabled.';
-  showMediaFallback();alert(message+' If this is Android Expo Go, continue in Chrome for microphone access.');
- }finally{button.disabled=false}
-};
-document.getElementById('camera').onclick=async()=>{
- const button=document.getElementById('camera');button.disabled=true;
- try{
-  const next=!cameraOn;
-  if(next){
-   if(!navigator.mediaDevices?.getUserMedia)throw new Error('This in-app browser cannot access the camera. Check SDA camera permission or open the meeting in Chrome.');
-   await room.localParticipant.setCameraEnabled(true,{facingMode:'user'});
-   attachExistingLocalTracks();
-  }else{
-   await room.localParticipant.setCameraEnabled(false);
-   const localTile=document.getElementById('tile-'+room.localParticipant.identity);
-   localTile?.querySelector('video')?.remove();
-   const avatar=localTile?.querySelector('.avatar');if(avatar)avatar.style.display='grid';
-  }
-  cameraOn=next;button.textContent=cameraOn?'📷 Stop video':'📷 Start video';renderPeople();
- }catch(e){showMediaFallback();alert((e?.message||'Camera could not be enabled.')+' If this is Android Expo Go, continue in Chrome for camera access.');}
- finally{button.disabled=false}
-};
+document.getElementById('mic').onclick=async()=>{const button=document.getElementById('mic');button.disabled=true;try{const next=!micOn;await room.localParticipant.setMicrophoneEnabled(next);micOn=next;button.textContent=micOn?'🎙 Mute':'🎙 Unmute';renderPeople()}catch(e){alert('Could not '+(micOn?'mute':'unmute')+' your microphone. Check that SDA has microphone permission, then try again.\n\n'+(e?.message||e))}finally{button.disabled=false}};
+document.getElementById('camera').onclick=async()=>{const button=document.getElementById('camera');button.disabled=true;try{const next=!cameraOn;await room.localParticipant.setCameraEnabled(next);cameraOn=next;button.textContent=cameraOn?'📷 Stop video':'📷 Start video';renderPeople()}catch(e){alert('Could not '+(cameraOn?'stop':'start')+' your camera. Check that SDA has camera permission, then try again.\n\n'+(e?.message||e))}finally{button.disabled=false}};
 document.getElementById('leave').onclick=()=>leave(false);
 document.getElementById('end').onclick=()=>{if(confirm('End this meeting for everyone?'))leave(true)};
 async function start(){
  if(!token||!serverUrl||!roomName||!api||!supabaseUrl||!anon)throw Error('The meeting link is incomplete or expired. Return to SDA and join again.');
  room=new Room({adaptiveStream:true,dynacast:true});
  room.on(RoomEvent.TrackSubscribed,(track,publication,participant)=>addTrack(track,participant.identity,participant.name||participant.identity));
- room.on(RoomEvent.LocalTrackPublished,publication=>{if(publication.track)addTrack(publication.track,room.localParticipant.identity,room.localParticipant.name||'You',true)});
+ // Remote tracks arrive through TrackSubscribed; the host's own camera is a
+ // local track and must be attached separately to render its preview tile.
+ room.on(RoomEvent.LocalTrackPublished,(publication,participant)=>{if(publication.track)addTrack(publication.track,participant.identity,participant.name||'You',true)});
+ room.on(RoomEvent.LocalTrackUnpublished,(publication,participant)=>{if(publication.track){publication.track.detach().forEach(n=>n.remove());if(publication.kind==='video'){const el=document.getElementById('tile-'+participant.identity);if(el){el.querySelector('video')?.remove();el.classList.remove('has-video');}}}});
  room.on(RoomEvent.TrackUnsubscribed,(track)=>track.detach().forEach(n=>n.remove()));
  room.on(RoomEvent.ParticipantConnected,renderPeople);room.on(RoomEvent.ParticipantDisconnected,p=>{document.getElementById('tile-'+p.identity)?.remove();renderPeople()});
- room.on(RoomEvent.TrackMuted,renderPeople);room.on(RoomEvent.TrackUnmuted,renderPeople);
- room.on(RoomEvent.Disconnected,()=>{connection.textContent='Disconnected';});room.on(RoomEvent.DataReceived,async(payload,participant)=>{try{const msg=JSON.parse(new TextDecoder().decode(payload));if(msg.type==='sda-unmute-request'&&!isHost){if(confirm('The host is requesting you to unmute. Allow your microphone?')){await room.localParticipant.setMicrophoneEnabled(true);micOn=true;document.getElementById('mic').textContent='🎙 Mute';renderPeople()}}}catch{}});
+ room.on(RoomEvent.TrackMuted,renderPeople);room.on(RoomEvent.TrackUnmuted,renderPeople);room.on(RoomEvent.DataReceived,async(payload,participant)=>{try{const msg=JSON.parse(new TextDecoder().decode(payload));if(msg.type==='sda-unmute-request'&&!isHost){if(confirm('The host is requesting you to unmute. Allow your microphone?')){await room.localParticipant.setMicrophoneEnabled(true);micOn=true;document.getElementById('mic').textContent='🎙 Mute';renderPeople()}}}catch{}});
  await room.connect(serverUrl,token);setInterval(()=>{fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'heartbeat',meetingId})}).catch(()=>{})},30000);
  tile(room.localParticipant.identity,room.localParticipant.name||'You',true);
- attachExistingLocalTracks();
  for(const p of room.remoteParticipants.values())for(const pub of p.trackPublications.values())if(pub.track)addTrack(pub.track,p.identity,p.name||p.identity);
  app.classList.remove('hidden');controls.classList.remove('hidden');connection.textContent='● Connected';renderPeople();
- if(isHost){
-  try{
-   if(!navigator.mediaDevices?.getUserMedia)throw new Error('Camera access is unavailable in this in-app browser.');
-   await room.localParticipant.setCameraEnabled(true,{facingMode:'user'});
-   cameraOn=true;document.getElementById('camera').textContent='📷 Stop video';attachExistingLocalTracks();
-  }catch(e){cameraOn=false;document.getElementById('camera').textContent='📷 Start video';alert('Host video could not start: '+(e?.message||'Check camera permission in Android Settings.'))}
- }
+ // Do not request camera capture automatically on page load. The host starts
+ // video from the visible button after joining, which gives the browser a clear
+ // user action and makes permission failures recoverable without losing audio.
+ if(isHost){document.getElementById('camera').textContent='📷 Start video'}
 }
 start().catch(e=>{connection.textContent='Connection failed';document.getElementById('failureText').textContent=e.message;document.getElementById('failure').classList.remove('hidden')});
 </script>
