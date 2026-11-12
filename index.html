@@ -24,6 +24,7 @@ main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,34px) clamp(14px,3vw,30
  <section class="stage-shell"><div class="grid" id="videoGrid"></div></section>
  <section class="panel"><div class="panel-head"><h2>People in this meeting</h2><span class="small">SDA MEMBERS</span></div><div id="people"></div></section>
 </main>
+<div id="mediaFallback" class="error hidden"><h2>Microphone or camera unavailable in this in-app view</h2><p class="muted">Android Expo Go may block media capture inside its embedded WebView. Continue this same meeting in Chrome to use your microphone and camera.</p><button class="primary" id="openExternal">Continue in Chrome</button></div>
 <div id="failure" class="error hidden"><h2>Unable to join this meeting</h2><p class="muted" id="failureText">The meeting link may have expired.</p><button onclick="location.reload()" class="primary">Try again</button></div>
 <div class="controls hidden" id="controls">
  <button id="mic">🎙 Unmute</button><button id="camera" class="hidden">📷 Start video</button><button id="leave" class="danger">Leave meeting</button><button id="end" class="danger hidden">End for everyone</button>
@@ -35,33 +36,95 @@ const token=q.get('token'),serverUrl=q.get('serverUrl'),roomName=q.get('roomName
 const isHost=q.get('isHost')==='true',api=q.get('api'),meetingId=q.get('meetingId'),supabaseUrl=q.get('supabaseUrl'),anon=q.get('supabaseAnonKey');
 const connection=document.getElementById('connection'),grid=document.getElementById('videoGrid'),people=document.getElementById('people');
 const controls=document.getElementById('controls'),app=document.getElementById('app');
+function showMediaFallback(){document.getElementById('mediaFallback').classList.remove('hidden');}
+document.getElementById('openExternal')?.addEventListener('click',()=>{window.ReactNativeWebView?.postMessage(JSON.stringify({type:'SDA_OPEN_EXTERNAL_BROWSER'}));});
 let room, micOn=false, cameraOn=false;
 document.getElementById('meetingTitle').textContent=title;
 document.getElementById('meetingMeta').textContent=isHost?'You are the host · Only host video is enabled':'SDA members · Audio participation';
 document.getElementById('camera').classList.toggle('hidden',!isHost);
 document.getElementById('end').classList.toggle('hidden',!isHost);
 function tile(identity,name,local=false){let el=document.getElementById('tile-'+identity);if(!el){el=document.createElement('div');el.className='tile';el.id='tile-'+identity;el.innerHTML=`<div class="avatar">${(name||'S').trim().charAt(0).toUpperCase()}</div><div class="name"></div>`;grid.append(el)}el.querySelector('.name').textContent=(name||identity)+(local?' · You':'');return el}
-function addTrack(track,identity,name,local=false){const el=tile(identity,name,local);const node=track.attach();if(track.kind==='video'){node.autoplay=true;node.playsInline=true;el.querySelector('video')?.remove();el.prepend(node)}else{node.autoplay=true;node.style.display='none';el.append(node)}}
+function addTrack(track,identity,name,local=false){
+ const el=tile(identity,name,local);
+ const node=track.attach();
+ if(track.kind==='video'){
+  node.autoplay=true;node.playsInline=true;node.muted=local;
+  node.style.position='absolute';node.style.inset='0';node.style.width='100%';node.style.height='100%';node.style.objectFit='cover';
+  el.querySelector('video')?.remove();el.prepend(node);
+  const avatar=el.querySelector('.avatar');if(avatar)avatar.style.display='none';
+  node.play?.().catch(()=>{});
+ }else{
+  node.autoplay=true;node.playsInline=true;node.style.display='none';node.muted=false;el.append(node);
+  node.play?.().catch(()=>{});
+ }
+}
+function attachExistingLocalTracks(){
+ const local=room.localParticipant;
+ for(const pub of local.trackPublications.values()){
+  if(pub.track)addTrack(pub.track,local.identity,local.name||'You',true);
+ }
+}
 function renderPeople(){people.innerHTML='';const participants=[room.localParticipant,...room.remoteParticipants.values()];document.getElementById('count').textContent=participants.length+' participants';participants.forEach(p=>{const row=document.createElement('div');row.className='person';const label=document.createElement('div');label.innerHTML=`<strong></strong><div class="person-status"></div>`;label.querySelector('strong').textContent=p.name||p.identity;label.querySelector('.person-status').textContent=(p.identity===room.localParticipant.identity?'You':'SDA member')+' · '+(p.isMicrophoneEnabled?'Mic on':'Muted');row.append(label);if(isHost&&p.identity!==room.localParticipant.identity){const actions=document.createElement('div');actions.className='person-actions';const b=document.createElement('button');b.textContent='Mute';b.onclick=()=>muteParticipant(p.identity);const req=document.createElement('button');req.textContent='Request unmute';req.onclick=()=>requestUnmute(p.identity);actions.append(b,req);row.append(actions)}people.append(row)})}
 async function requestUnmute(identity){try{const payload=new TextEncoder().encode(JSON.stringify({type:'sda-unmute-request',from:room.localParticipant.identity}));await room.localParticipant.publishData(payload,{reliable:true,destinationIdentities:[identity]});alert('Unmute request sent. The member must approve it.')}catch(e){alert('Could not send request: '+e.message)}}
 async function muteParticipant(identity){try{const r=await fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'mute',meetingId,targetIdentity:identity})});const d=await r.json();if(!r.ok)throw Error(d.error||'Could not mute participant');}catch(e){alert(e.message)}}
 async function leave(end=false){try{if(end&&isHost){await fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'end',meetingId})})}else{await fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'leave',meetingId})})}}finally{room?.disconnect();connection.textContent='Disconnected';document.getElementById('controls').classList.add('hidden');setTimeout(()=>{window.close();document.body.innerHTML='<div class="error"><h2>Meeting ended</h2><p class="muted">You can return to Sword Drill Arena.</p></div>'},250)}}
-document.getElementById('mic').onclick=async()=>{micOn=!micOn;await room.localParticipant.setMicrophoneEnabled(micOn);document.getElementById('mic').textContent=micOn?'🎙 Mute':'🎙 Unmute';renderPeople()};
-document.getElementById('camera').onclick=async()=>{cameraOn=!cameraOn;await room.localParticipant.setCameraEnabled(cameraOn);document.getElementById('camera').textContent=cameraOn?'📷 Stop video':'📷 Start video';renderPeople()};
+document.getElementById('mic').onclick=async()=>{
+ const button=document.getElementById('mic');button.disabled=true;
+ try{
+  const next=!micOn;
+  if(next){
+   if(!navigator.mediaDevices?.getUserMedia)throw new Error('This in-app browser cannot access the microphone. Check SDA microphone permission or open the meeting in Chrome.');
+   await room.localParticipant.setMicrophoneEnabled(true);
+  }else{
+   await room.localParticipant.setMicrophoneEnabled(false);
+  }
+  micOn=next;button.textContent=micOn?'🎙 Mute':'🎙 Unmute';renderPeople();
+ }catch(e){
+  const message=e?.message||'Microphone could not be enabled.';
+  showMediaFallback();alert(message+' If this is Android Expo Go, continue in Chrome for microphone access.');
+ }finally{button.disabled=false}
+};
+document.getElementById('camera').onclick=async()=>{
+ const button=document.getElementById('camera');button.disabled=true;
+ try{
+  const next=!cameraOn;
+  if(next){
+   if(!navigator.mediaDevices?.getUserMedia)throw new Error('This in-app browser cannot access the camera. Check SDA camera permission or open the meeting in Chrome.');
+   await room.localParticipant.setCameraEnabled(true,{facingMode:'user'});
+   attachExistingLocalTracks();
+  }else{
+   await room.localParticipant.setCameraEnabled(false);
+   const localTile=document.getElementById('tile-'+room.localParticipant.identity);
+   localTile?.querySelector('video')?.remove();
+   const avatar=localTile?.querySelector('.avatar');if(avatar)avatar.style.display='grid';
+  }
+  cameraOn=next;button.textContent=cameraOn?'📷 Stop video':'📷 Start video';renderPeople();
+ }catch(e){showMediaFallback();alert((e?.message||'Camera could not be enabled.')+' If this is Android Expo Go, continue in Chrome for camera access.');}
+ finally{button.disabled=false}
+};
 document.getElementById('leave').onclick=()=>leave(false);
 document.getElementById('end').onclick=()=>{if(confirm('End this meeting for everyone?'))leave(true)};
 async function start(){
  if(!token||!serverUrl||!roomName||!api||!supabaseUrl||!anon)throw Error('The meeting link is incomplete or expired. Return to SDA and join again.');
  room=new Room({adaptiveStream:true,dynacast:true});
  room.on(RoomEvent.TrackSubscribed,(track,publication,participant)=>addTrack(track,participant.identity,participant.name||participant.identity));
+ room.on(RoomEvent.LocalTrackPublished,publication=>{if(publication.track)addTrack(publication.track,room.localParticipant.identity,room.localParticipant.name||'You',true)});
  room.on(RoomEvent.TrackUnsubscribed,(track)=>track.detach().forEach(n=>n.remove()));
  room.on(RoomEvent.ParticipantConnected,renderPeople);room.on(RoomEvent.ParticipantDisconnected,p=>{document.getElementById('tile-'+p.identity)?.remove();renderPeople()});
- room.on(RoomEvent.TrackMuted,renderPeople);room.on(RoomEvent.TrackUnmuted,renderPeople);room.on(RoomEvent.DataReceived,async(payload,participant)=>{try{const msg=JSON.parse(new TextDecoder().decode(payload));if(msg.type==='sda-unmute-request'&&!isHost){if(confirm('The host is requesting you to unmute. Allow your microphone?')){await room.localParticipant.setMicrophoneEnabled(true);micOn=true;document.getElementById('mic').textContent='🎙 Mute';renderPeople()}}}catch{}});
+ room.on(RoomEvent.TrackMuted,renderPeople);room.on(RoomEvent.TrackUnmuted,renderPeople);
+ room.on(RoomEvent.Disconnected,()=>{connection.textContent='Disconnected';});room.on(RoomEvent.DataReceived,async(payload,participant)=>{try{const msg=JSON.parse(new TextDecoder().decode(payload));if(msg.type==='sda-unmute-request'&&!isHost){if(confirm('The host is requesting you to unmute. Allow your microphone?')){await room.localParticipant.setMicrophoneEnabled(true);micOn=true;document.getElementById('mic').textContent='🎙 Mute';renderPeople()}}}catch{}});
  await room.connect(serverUrl,token);setInterval(()=>{fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'heartbeat',meetingId})}).catch(()=>{})},30000);
  tile(room.localParticipant.identity,room.localParticipant.name||'You',true);
+ attachExistingLocalTracks();
  for(const p of room.remoteParticipants.values())for(const pub of p.trackPublications.values())if(pub.track)addTrack(pub.track,p.identity,p.name||p.identity);
  app.classList.remove('hidden');controls.classList.remove('hidden');connection.textContent='● Connected';renderPeople();
- if(isHost){cameraOn=true;await room.localParticipant.setCameraEnabled(true);document.getElementById('camera').textContent='📷 Stop video'}
+ if(isHost){
+  try{
+   if(!navigator.mediaDevices?.getUserMedia)throw new Error('Camera access is unavailable in this in-app browser.');
+   await room.localParticipant.setCameraEnabled(true,{facingMode:'user'});
+   cameraOn=true;document.getElementById('camera').textContent='📷 Stop video';attachExistingLocalTracks();
+  }catch(e){cameraOn=false;document.getElementById('camera').textContent='📷 Start video';alert('Host video could not start: '+(e?.message||'Check camera permission in Android Settings.'))}
+ }
 }
 start().catch(e=>{connection.textContent='Connection failed';document.getElementById('failureText').textContent=e.message;document.getElementById('failure').classList.remove('hidden')});
 </script>
