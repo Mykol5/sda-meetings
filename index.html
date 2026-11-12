@@ -26,6 +26,21 @@ main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,34px) clamp(14px,3vw,30
 @media(max-width:520px){.controls{gap:clamp(9px,3vw,16px);padding:10px 8px max(13px,env(safe-area-inset-bottom))}.control{min-width:54px;gap:6px}.control .control-icon{width:49px;height:49px;border-radius:17px}.control .control-label{font-size:9px}}
 @media(min-width:900px){.stage-shell{padding:16px}.grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.tile{min-height:245px}}
 @media(max-width:520px){body{padding-bottom:104px}header{height:56px}.title{align-items:flex-start}.title h1{font-size:22px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{min-height:150px;aspect-ratio:4/5;border-radius:14px}.avatar{width:52px;height:52px;border-radius:18px}.tile.has-video .avatar{display:none}.name{font-size:10px;padding:23px 9px 9px}.stage-shell{padding:8px;border-radius:17px}.panel{padding:14px}.controls{gap:7px;padding:10px 8px max(12px,env(safe-area-inset-bottom))}.controls button{min-width:0;flex:1;padding:12px 8px;font-size:10px;border-radius:12px}}
+
+/* SDA Live Bible panel */
+.bible-panel{position:fixed;left:50%;transform:translateX(-50%);bottom:108px;width:min(760px,calc(100% - 24px));max-height:min(72vh,680px);z-index:7;display:flex;flex-direction:column;background:linear-gradient(145deg,#21192f,#100e18);border:1px solid #4a365f;border-radius:22px;box-shadow:0 24px 80px #000b;overflow:hidden}
+.bible-panel.hidden{display:none!important}.bible-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border-bottom:1px solid #3a2d4b}
+.bible-heading{font-size:14px;font-weight:900}.bible-subheading{font-size:9px;color:var(--muted);margin-top:4px}.bible-close{width:34px;height:34px;border:1px solid #493b5a;border-radius:11px;background:#292333;color:#eee;cursor:pointer;font-size:18px}
+.bible-tools{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;padding:12px 14px;border-bottom:1px solid #30263f}.bible-reference-row{display:flex;gap:7px;min-width:0}
+.bible-input,.bible-select{min-width:0;width:100%;height:40px;padding:0 11px;border:1px solid #493b5a;border-radius:11px;background:#171321;color:#f8f6fc;font:inherit;font-size:11px;outline:none}.bible-select{width:auto;max-width:112px}
+.bible-action{border:1px solid #8f5bc7;border-radius:11px;background:linear-gradient(110deg,#8b3dff,#6e32c8);color:white;font-size:10px;font-weight:850;padding:0 13px;white-space:nowrap;cursor:pointer}
+.bible-sync{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 15px;background:#171321;color:#bcaed0;font-size:9px}.bible-sync strong{color:#c9a5ff}
+.bible-content{overflow:auto;padding:8px 15px 14px;overscroll-behavior:contain}.bible-verse{display:flex;gap:11px;padding:11px 9px;border-bottom:1px solid #2d2638;border-radius:9px;cursor:pointer}.bible-verse.current{background:#332247;border:1px solid #67468a}
+.bible-verse-number{flex:0 0 23px;color:#bda0e4;font-size:10px;font-weight:900;padding-top:2px}.bible-verse-text{color:#e9e3f1;font-size:12px;line-height:1.75}
+.bible-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-top:1px solid #3a2d4b;background:#171321}.bible-nav button{min-height:36px;border:1px solid #493b5a;border-radius:10px;background:#292333;color:#eee;font-size:10px;font-weight:800;padding:0 12px;cursor:pointer}.bible-nav button:disabled{opacity:.35;cursor:not-allowed}
+.bible-current{font-size:10px;color:#d9c8ed;font-weight:850;text-align:center}.bible-message{padding:25px 12px;text-align:center;color:var(--muted);font-size:11px;line-height:1.6}
+@media(max-width:520px){.bible-panel{bottom:99px;width:calc(100% - 14px);max-height:76vh;border-radius:18px}.bible-tools{grid-template-columns:1fr;gap:7px}.bible-select{width:100%;max-width:none}.bible-input{flex:1}.bible-action{min-width:58px}}
+
 </style>
 </head>
 <body>
@@ -43,6 +58,9 @@ main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,34px) clamp(14px,3vw,30
  <button id="camera" class="control hidden" type="button" aria-label="Start video" aria-pressed="false">
   <span class="control-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3z"/></svg></span><span class="control-label">Start video</span>
  </button>
+ <button id="bibleToggle" class="control" type="button" aria-label="Open Live Bible" aria-expanded="false">
+  <span class="control-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16M9 7h7M9 11h7M9 15h5"/></svg></span><span class="control-label">Bible</span>
+ </button>
  <button id="leave" class="control danger" type="button" aria-label="Leave meeting">
   <span class="control-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14.5a13 13 0 0 1 16 0l-2.2 3.1a1.5 1.5 0 0 1-1.9.45l-2-1a1.5 1.5 0 0 1-.8-1.1l-.2-1.4a11 11 0 0 0-1.8 0l-.2 1.4a1.5 1.5 0 0 1-.8 1.1l-2 1a1.5 1.5 0 0 1-1.9-.45L4 14.5Z"/></svg></span><span class="control-label">Leave</span>
  </button>
@@ -50,6 +68,16 @@ main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,34px) clamp(14px,3vw,30
   <span class="control-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14.5a13 13 0 0 1 16 0l-2.2 3.1a1.5 1.5 0 0 1-1.9.45l-2-1a1.5 1.5 0 0 1-.8-1.1l-.2-1.4a11 11 0 0 0-1.8 0l-.2 1.4a1.5 1.5 0 0 1-.8 1.1l-2 1a1.5 1.5 0 0 1-1.9-.45L4 14.5Z"/><path d="m5 5 14 14"/></svg></span><span class="control-label">End meeting</span>
  </button>
 </div>
+
+<section id="biblePanel" class="bible-panel hidden" aria-label="Live Bible reading">
+ <div class="bible-head"><div><div class="bible-heading">Live Bible</div><div class="bible-subheading">Shared scripture · Anyone in this meeting can navigate</div></div><button id="bibleClose" class="bible-close" type="button" aria-label="Close Bible">×</button></div>
+ <div class="bible-tools"><div class="bible-reference-row"><input id="bibleReference" class="bible-input" type="text" value="John 3:16" placeholder="e.g. John 3:16" aria-label="Bible reference"><button id="bibleGo" class="bible-action" type="button">Open</button></div>
+ <select id="bibleTranslation" class="bible-select" aria-label="Bible translation"><option value="kjv">KJV</option><option value="web">WEB</option></select></div>
+ <div class="bible-sync"><span id="bibleSyncStatus"><strong>Shared reading</strong> · Everyone follows this passage</span><span id="bibleVersionLabel">KJV</span></div>
+ <div id="bibleContent" class="bible-content"><div class="bible-message">Open a scripture reference to begin reading together.</div></div>
+ <div class="bible-nav"><button id="biblePrevious" type="button" disabled>← Previous</button><div id="bibleCurrent" class="bible-current">John 3:16</div><button id="bibleNext" type="button" disabled>Next →</button></div>
+</section>
+
 <section id="endScreen" class="end-screen hidden" role="dialog" aria-modal="true" aria-labelledby="endTitle">
  <div class="end-card">
   <div class="end-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3M16 5h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/><path d="m9 12 3 3 3-3M12 15V3"/></svg></div>
@@ -146,6 +174,33 @@ document.getElementById('camera').onclick=async()=>{const button=document.getEle
 document.getElementById('leave').onclick=()=>leave(false);
 document.getElementById('end').onclick=async()=>{const confirmed=await showSdaDialog({title:'End meeting for everyone?',message:'Everyone will be disconnected from this SDA meeting.',confirmText:'End meeting',cancelText:'Keep meeting',danger:true});if(confirmed)leave(true)};
 document.getElementById('backToSda').onclick=returnToSda;
+
+// SDA LIVE BIBLE: shared reference + translation; scripture text loads locally per member.
+const biblePanel=document.getElementById('biblePanel'),bibleToggle=document.getElementById('bibleToggle');
+const bibleContent=document.getElementById('bibleContent'),bibleReferenceInput=document.getElementById('bibleReference');
+const bibleTranslationSelect=document.getElementById('bibleTranslation'),bibleCurrentLabel=document.getElementById('bibleCurrent');
+const biblePrevious=document.getElementById('biblePrevious'),bibleNext=document.getElementById('bibleNext');
+const bibleVersionLabel=document.getElementById('bibleVersionLabel');
+let bibleVerses=[],bibleIndex=0,bibleBook='John',bibleChapter=3,bibleTranslation='kjv',bibleLoaded=false,bibleRequest=0;
+function parseBibleReference(reference){const m=String(reference||'').trim().match(/^(.+?)\s+(\d+)(?::(\d+))?$/);if(!m)throw Error('Enter a reference such as John 3:16 or Psalm 23:1.');return{book:m[1].trim(),chapter:Number(m[2]),verse:Number(m[3]||1)}}
+function bibleReferenceText(){return `${bibleBook} ${bibleChapter}:${bibleVerses[bibleIndex]?.verse||1}`}
+function updateBibleNavigation(){const ref=bibleReferenceText();bibleReferenceInput.value=ref;bibleCurrentLabel.textContent=ref;bibleVersionLabel.textContent=bibleTranslation.toUpperCase();biblePrevious.disabled=!bibleVerses.length;bibleNext.disabled=!bibleVerses.length}
+function renderBibleVerses(){bibleContent.innerHTML='';bibleVerses.forEach((v,i)=>{const row=document.createElement('div');row.className='bible-verse'+(i===bibleIndex?' current':'');const n=document.createElement('span');n.className='bible-verse-number';n.textContent=String(v.verse);const t=document.createElement('span');t.className='bible-verse-text';t.textContent=v.text.trim();row.append(n,t);row.onclick=async()=>{bibleIndex=i;renderBibleVerses();updateBibleNavigation();await shareBibleState()};bibleContent.append(row)});bibleContent.querySelector('.current')?.scrollIntoView({block:'nearest',behavior:'smooth'})}
+function showBibleMessage(message){bibleContent.innerHTML='';const el=document.createElement('div');el.className='bible-message';el.textContent=message;bibleContent.append(el)}
+async function bibleApiAction(action,state){const r=await fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action,meetingId,...(state?{bibleState:state}:{})})});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||'Could not sync the shared Bible passage.');return d}
+async function loadBibleReference(reference,translation=bibleTranslation,share=false){const p=parseBibleReference(reference);if(p.chapter<1||p.chapter>200)throw Error('Enter a valid Bible chapter.');if(!['kjv','web'].includes(translation))throw Error('That Bible translation is not available yet.');const id=++bibleRequest;showBibleMessage('Loading scripture…');const r=await fetch(`https://bible-api.com/${encodeURIComponent(`${p.book} ${p.chapter}`)}?translation=${encodeURIComponent(translation)}`);if(!r.ok)throw Error('Could not load that passage. Check the book, chapter and translation.');const data=await r.json();if(id!==bibleRequest)return;if(!Array.isArray(data.verses)||!data.verses.length)throw Error('No verses were found for that passage.');bibleBook=p.book;bibleChapter=p.chapter;bibleTranslation=translation;bibleVerses=data.verses;const idx=bibleVerses.findIndex(v=>Number(v.verse)===p.verse);bibleIndex=idx>=0?idx:0;bibleTranslationSelect.value=translation;renderBibleVerses();updateBibleNavigation();bibleLoaded=true;if(share)await shareBibleState()}
+async function shareBibleState(){const state={reference:bibleReferenceText(),translation:bibleTranslation};try{await bibleApiAction('bible-set-state',state);await room.localParticipant.publishData(new TextEncoder().encode(JSON.stringify({type:'sda-bible-state',...state,updatedBy:room.localParticipant.identity})),{reliable:true});document.getElementById('bibleSyncStatus').innerHTML='<strong>Shared reading</strong> · Everyone follows this passage'}catch(e){showBibleMessage(e.message||'Could not share this passage.')}}
+async function openBiblePanel(){biblePanel.classList.remove('hidden');bibleToggle.classList.add('active');bibleToggle.setAttribute('aria-expanded','true');if(bibleLoaded)return;try{const d=await bibleApiAction('bible-get-state');if(d.bibleState?.reference)await loadBibleReference(d.bibleState.reference,d.bibleState.translation||'kjv');else await loadBibleReference('John 3:16','kjv')}catch(e){showBibleMessage(e.message||'Could not open Live Bible.')}}
+function closeBiblePanel(){biblePanel.classList.add('hidden');bibleToggle.classList.remove('active');bibleToggle.setAttribute('aria-expanded','false')}
+bibleToggle.onclick=()=>biblePanel.classList.contains('hidden')?openBiblePanel():closeBiblePanel();
+document.getElementById('bibleClose').onclick=closeBiblePanel;
+document.getElementById('bibleGo').onclick=async()=>{try{await loadBibleReference(bibleReferenceInput.value,bibleTranslationSelect.value,true)}catch(e){showBibleMessage(e.message||'Could not open that passage.')}}
+bibleReferenceInput.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('bibleGo').click()});
+bibleTranslationSelect.onchange=async()=>{if(bibleLoaded){try{await loadBibleReference(bibleReferenceText(),bibleTranslationSelect.value,true)}catch(e){showBibleMessage(e.message||'Could not change translation.')}}};
+async function moveBibleVerse(dir){if(!bibleVerses.length)return;const target=bibleIndex+dir;if(target>=0&&target<bibleVerses.length){bibleIndex=target;renderBibleVerses();updateBibleNavigation();await shareBibleState();return}const ch=bibleChapter+(dir>0?1:-1);if(ch<1)return;try{await loadBibleReference(`${bibleBook} ${ch}:${dir>0?1:999}`,bibleTranslation,true);if(dir<0){bibleIndex=bibleVerses.length-1;renderBibleVerses();updateBibleNavigation();await shareBibleState()}}catch(e){showBibleMessage(dir>0?'Could not load the next chapter.':'Could not load the previous chapter.')}}
+biblePrevious.onclick=()=>moveBibleVerse(-1);bibleNext.onclick=()=>moveBibleVerse(1);
+function applyIncomingBibleState(state){if(!state?.reference||!['kjv','web'].includes(state.translation))return;loadBibleReference(state.reference,state.translation,false).catch(e=>showBibleMessage(e.message||'Could not update shared passage.'))}
+
 async function start(){
  if(!token||!serverUrl||!roomName||!api||!supabaseUrl||!anon)throw Error('The meeting link is incomplete or expired. Return to SDA and join again.');
  room=new Room({adaptiveStream:true,dynacast:true});
@@ -157,11 +212,14 @@ async function start(){
  room.on(RoomEvent.TrackUnsubscribed,(track)=>track.detach().forEach(n=>n.remove()));
  room.on(RoomEvent.ParticipantConnected,renderPeople);room.on(RoomEvent.ParticipantDisconnected,p=>{document.getElementById('tile-'+p.identity)?.remove();renderPeople()});
   room.on(RoomEvent.Disconnected,()=>{if(!finishing)showMeetingEnded(false)});
+ room.on(RoomEvent.DataReceived,(payload)=>{try{const m=JSON.parse(new TextDecoder().decode(payload));if(m.type==='sda-bible-state'&&m.updatedBy!==room.localParticipant.identity)applyIncomingBibleState(m)}catch{}});
  room.on(RoomEvent.TrackMuted,renderPeople);room.on(RoomEvent.TrackUnmuted,renderPeople);room.on(RoomEvent.DataReceived,async(payload,participant)=>{try{const msg=JSON.parse(new TextDecoder().decode(payload));if(msg.type==='sda-unmute-request'&&!isHost){if(await showSdaDialog({title:'The host is requesting you to unmute',message:'Would you like to turn on your microphone?',confirmText:'Unmute microphone',cancelText:'Not now'})){await room.localParticipant.setMicrophoneEnabled(true);micOn=true;updateControl(document.getElementById('mic'),true,'Unmute','Mute','<path d="M12 2.75a3.25 3.25 0 0 0-3.25 3.25v5a3.25 3.25 0 0 0 6.5 0V6A3.25 3.25 0 0 0 12 2.75Z"/><path d="M5.5 10.5v.5a6.5 6.5 0 0 0 13 0v-.5M12 17.5v4M8.5 21.5h7"/>','<path d="M9 9v2a3 3 0 0 0 5.2 2.05M15 9V6a3 3 0 0 0-5.9-.75M5.5 10.5v.5a6.5 6.5 0 0 0 11.1 4.6M12 17.5v4M8.5 21.5h7M3 3l18 18"/>');renderPeople()}}}catch{}});
  await room.connect(serverUrl,token);setInterval(()=>{fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'heartbeat',meetingId})}).catch(()=>{})},30000);
  tile(room.localParticipant.identity,room.localParticipant.name||'You',true);
  for(const p of room.remoteParticipants.values())for(const pub of p.trackPublications.values())if(pub.track)addTrack(pub.track,p.identity,p.name||p.identity);
  app.classList.remove('hidden');controls.classList.remove('hidden');connection.textContent='● Connected';renderPeople();
+ bibleApiAction('bible-get-state').then(d=>{if(d.bibleState?.reference)applyIncomingBibleState(d.bibleState)}).catch(()=>{});
+
  // Do not request camera capture automatically on page load. The host starts
  // video from the visible button after joining, which gives the browser a clear
  // user action and makes permission failures recoverable without losing audio.
