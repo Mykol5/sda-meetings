@@ -12,7 +12,9 @@ main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,34px) clamp(14px,3vw,30
 #count{color:#e6d9f7;background:#21182e;border:1px solid #443158;padding:9px 12px;border-radius:12px;font-size:11px;font-weight:800;white-space:nowrap}
 .stage-shell{background:linear-gradient(145deg,#1a1425,#100e18);border:1px solid var(--line);border-radius:22px;padding:12px;box-shadow:0 22px 70px #0005}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}.tile{background:radial-gradient(circle at 50% 35%,#342348,#191522 68%);border:1px solid #3b304a;border-radius:17px;overflow:hidden;min-height:210px;aspect-ratio:16/10;position:relative;display:flex;align-items:center;justify-content:center}.tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#08070d}.tile.has-video .avatar{display:none}.avatar{width:66px;height:66px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#513174,#2a1d3b);border:1px solid #7954a0;color:#f0e5ff;font-size:22px;font-weight:900;box-shadow:0 10px 30px #0005}.name{position:absolute;bottom:0;left:0;right:0;padding:26px 13px 12px;background:linear-gradient(transparent,#08070bf0);font-size:11px;font-weight:800;z-index:1}.you{position:absolute;top:11px;left:11px;background:#25143a;border:1px solid #54366f;padding:6px 9px;border-radius:20px;font-size:9px;color:#e3d1fa;z-index:2}
 .panel{margin-top:16px;padding:17px 18px;background:var(--panel);border:1px solid var(--line);border-radius:18px}.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.panel h2{font-size:13px;margin:0;font-weight:900}.small{font-size:10px;color:var(--muted)}.person{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #2a2435;gap:10px}.person:last-child{border:0}.person strong{font-size:11px}.person-actions{display:flex;gap:7px;flex-wrap:wrap}.person button{padding:7px 10px;font-size:9px}.person-status{font-size:9px;color:var(--muted);margin-top:4px}.error{max-width:480px;margin:70px auto;padding:26px;background:var(--panel);border:1px solid var(--line);border-radius:20px;text-align:center}.hidden{display:none}
-.controls{position:fixed;bottom:0;left:0;right:0;padding:14px 12px max(15px,env(safe-area-inset-bottom));background:#100e17ed;border-top:1px solid #30263f;backdrop-filter:blur(20px);display:flex;justify-content:center;align-items:center;gap:9px;z-index:8;flex-wrap:wrap}.controls button{min-width:104px;border:1px solid #42374f;border-radius:13px;padding:12px 15px;background:#25202e;color:#f8f6fc;font-weight:800;font-size:11px;cursor:pointer;transition:.18s}.controls button:hover{background:#342743;border-color:#74519a}.controls button.primary{background:var(--purple);border-color:var(--purple)}.controls button.danger{background:#8f293b;border-color:#a83b4d}.controls button:disabled{opacity:.45}
+.controls{position:fixed;bottom:0;left:0;right:0;padding:12px 14px max(16px,env(safe-area-inset-bottom));background:linear-gradient(180deg,#100e17e8,#0b0912f7);border-top:1px solid #30263f;backdrop-filter:blur(22px);display:flex;justify-content:center;align-items:flex-end;gap:clamp(10px,2.4vw,24px);z-index:8;flex-wrap:wrap}.control{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-width:58px;border:0;background:transparent;color:#c9c1d5;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}.control .control-icon{width:54px;height:54px;border:1px solid #42374f;border-radius:19px;background:linear-gradient(145deg,#292333,#1c1826);display:grid;place-items:center;box-shadow:0 8px 22px #0004;transition:transform .16s ease,border-color .16s ease,background .16s ease}.control svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.control .control-label{font-size:10px;font-weight:700;letter-spacing:.01em;white-space:nowrap}.control:active .control-icon{transform:scale(.94)}.control.active .control-icon{background:linear-gradient(145deg,#6532a2,#45216f);border-color:#9662ce;color:#fff}.control.danger .control-icon{background:linear-gradient(145deg,#a52e47,#702036);border-color:#c34c63;color:#fff}.control.end .control-icon{background:linear-gradient(145deg,#e3445e,#a51e3a);border-color:#f36a7f;color:#fff}.control:disabled{opacity:.45;cursor:wait}.control:focus-visible .control-icon{outline:2px solid #d6b5ff;outline-offset:3px}.hidden{display:none!important}
+.end-screen{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:28px;background:radial-gradient(ellipse at 50% 25%,#321b4d 0,transparent 52%),#090812;text-align:center}.end-card{width:min(100%,420px);padding:34px 26px 28px;background:linear-gradient(145deg,#1c1728,#110f19);border:1px solid #3a2d4b;border-radius:26px;box-shadow:0 28px 90px #0008}.end-symbol{width:76px;height:76px;margin:0 auto 22px;border-radius:25px;display:grid;place-items:center;color:#e8d8ff;background:linear-gradient(145deg,#593080,#2b1b40);border:1px solid #8154a8}.end-symbol svg{width:34px;height:34px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.end-card h2{font-size:24px;letter-spacing:-.04em;margin:0 0 9px}.end-card p{font-size:12px;line-height:1.7;color:var(--muted);margin:0 auto 24px;max-width:290px}.back-sda{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:15px 18px;border:1px solid #9b6bd0;border-radius:15px;background:linear-gradient(110deg,#8b3dff,#6e32c8);color:#fff;font-size:13px;font-weight:850;box-shadow:0 12px 28px #6b35a94a;cursor:pointer}.back-sda svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:520px){.controls{gap:clamp(9px,3vw,16px);padding:10px 8px max(13px,env(safe-area-inset-bottom))}.control{min-width:54px;gap:6px}.control .control-icon{width:49px;height:49px;border-radius:17px}.control .control-label{font-size:9px}}
 @media(min-width:900px){.stage-shell{padding:16px}.grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.tile{min-height:245px}}
 @media(max-width:520px){body{padding-bottom:104px}header{height:56px}.title{align-items:flex-start}.title h1{font-size:22px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{min-height:150px;aspect-ratio:4/5;border-radius:14px}.avatar{width:52px;height:52px;border-radius:18px}.tile.has-video .avatar{display:none}.name{font-size:10px;padding:23px 9px 9px}.stage-shell{padding:8px;border-radius:17px}.panel{padding:14px}.controls{gap:7px;padding:10px 8px max(12px,env(safe-area-inset-bottom))}.controls button{min-width:0;flex:1;padding:12px 8px;font-size:10px;border-radius:12px}}
 </style>
@@ -25,9 +27,28 @@ main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,34px) clamp(14px,3vw,30
  <section class="panel"><div class="panel-head"><h2>People in this meeting</h2><span class="small">SDA MEMBERS</span></div><div id="people"></div></section>
 </main>
 <div id="failure" class="error hidden"><h2>Unable to join this meeting</h2><p class="muted" id="failureText">The meeting link may have expired.</p><button onclick="location.reload()" class="primary">Try again</button></div>
-<div class="controls hidden" id="controls">
- <button id="mic">🎙 Unmute</button><button id="camera" class="hidden">📷 Start video</button><button id="leave" class="danger">Leave meeting</button><button id="end" class="danger hidden">End for everyone</button>
+<div class="controls hidden" id="controls" role="toolbar" aria-label="Meeting controls">
+ <button id="mic" class="control" type="button" aria-label="Unmute microphone" aria-pressed="false">
+  <span class="control-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.75a3.25 3.25 0 0 0-3.25 3.25v5a3.25 3.25 0 0 0 6.5 0V6A3.25 3.25 0 0 0 12 2.75Z"/><path d="M5.5 10.5v.5a6.5 6.5 0 0 0 13 0v-.5M12 17.5v4M8.5 21.5h7"/></svg></span><span class="control-label">Unmute</span>
+ </button>
+ <button id="camera" class="control hidden" type="button" aria-label="Start video" aria-pressed="false">
+  <span class="control-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3z"/></svg></span><span class="control-label">Start video</span>
+ </button>
+ <button id="leave" class="control danger" type="button" aria-label="Leave meeting">
+  <span class="control-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14.5a13 13 0 0 1 16 0l-2.2 3.1a1.5 1.5 0 0 1-1.9.45l-2-1a1.5 1.5 0 0 1-.8-1.1l-.2-1.4a11 11 0 0 0-1.8 0l-.2 1.4a1.5 1.5 0 0 1-.8 1.1l-2 1a1.5 1.5 0 0 1-1.9-.45L4 14.5Z"/></svg></span><span class="control-label">Leave</span>
+ </button>
+ <button id="end" class="control end hidden" type="button" aria-label="End meeting for everyone">
+  <span class="control-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14.5a13 13 0 0 1 16 0l-2.2 3.1a1.5 1.5 0 0 1-1.9.45l-2-1a1.5 1.5 0 0 1-.8-1.1l-.2-1.4a11 11 0 0 0-1.8 0l-.2 1.4a1.5 1.5 0 0 1-.8 1.1l-2 1a1.5 1.5 0 0 1-1.9-.45L4 14.5Z"/><path d="m5 5 14 14"/></svg></span><span class="control-label">End meeting</span>
+ </button>
 </div>
+<section id="endScreen" class="end-screen hidden" role="dialog" aria-modal="true" aria-labelledby="endTitle">
+ <div class="end-card">
+  <div class="end-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3M16 5h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/><path d="m9 12 3 3 3-3M12 15V3"/></svg></div>
+  <h2 id="endTitle">Meeting ended</h2>
+  <p id="endMessage">Thank you for joining this SDA meeting. You can return to the app now.</p>
+  <button class="back-sda" id="backToSda" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5-7 7 7 7M8 12h13"/></svg>Back to SDA</button>
+ </div>
+</section>
 <script type="module">
 import { Room, RoomEvent, Track } from 'https://esm.sh/livekit-client@2.15.6';
 const q=new URLSearchParams(location.hash.slice(1));
@@ -45,11 +66,50 @@ function addTrack(track,identity,name,local=false){if(local&&track.kind==='audio
 function renderPeople(){people.innerHTML='';const participants=[room.localParticipant,...room.remoteParticipants.values()];document.getElementById('count').textContent=participants.length+' participants';participants.forEach(p=>{const row=document.createElement('div');row.className='person';const label=document.createElement('div');label.innerHTML=`<strong></strong><div class="person-status"></div>`;label.querySelector('strong').textContent=p.name||p.identity;label.querySelector('.person-status').textContent=(p.identity===room.localParticipant.identity?'You':'SDA member')+' · '+(p.isMicrophoneEnabled?'Mic on':'Muted');row.append(label);if(isHost&&p.identity!==room.localParticipant.identity){const actions=document.createElement('div');actions.className='person-actions';const b=document.createElement('button');b.textContent='Mute';b.onclick=()=>muteParticipant(p.identity);const req=document.createElement('button');req.textContent='Request unmute';req.onclick=()=>requestUnmute(p.identity);actions.append(b,req);row.append(actions)}people.append(row)})}
 async function requestUnmute(identity){try{const payload=new TextEncoder().encode(JSON.stringify({type:'sda-unmute-request',from:room.localParticipant.identity}));await room.localParticipant.publishData(payload,{reliable:true,destinationIdentities:[identity]});alert('Unmute request sent. The member must approve it.')}catch(e){alert('Could not send request: '+e.message)}}
 async function muteParticipant(identity){try{const r=await fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'mute',meetingId,targetIdentity:identity})});const d=await r.json();if(!r.ok)throw Error(d.error||'Could not mute participant');}catch(e){alert(e.message)}}
-async function leave(end=false){try{if(end&&isHost){await fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'end',meetingId})})}else{await fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'leave',meetingId})})}}finally{room?.disconnect();connection.textContent='Disconnected';document.getElementById('controls').classList.add('hidden');setTimeout(()=>{window.close();document.body.innerHTML='<div class="error"><h2>Meeting ended</h2><p class="muted">You can return to Sword Drill Arena.</p></div>'},250)}}
-document.getElementById('mic').onclick=async()=>{const button=document.getElementById('mic');button.disabled=true;try{const next=!micOn;await room.localParticipant.setMicrophoneEnabled(next);micOn=next;button.textContent=micOn?'🎙 Mute':'🎙 Unmute';renderPeople()}catch(e){alert('Could not '+(micOn?'mute':'unmute')+' your microphone. Check that SDA has microphone permission, then try again.\n\n'+(e?.message||e))}finally{button.disabled=false}};
-document.getElementById('camera').onclick=async()=>{const button=document.getElementById('camera');button.disabled=true;try{const next=!cameraOn;await room.localParticipant.setCameraEnabled(next);cameraOn=next;button.textContent=cameraOn?'📷 Stop video':'📷 Start video';renderPeople()}catch(e){alert('Could not '+(cameraOn?'stop':'start')+' your camera. Check that SDA has camera permission, then try again.\n\n'+(e?.message||e))}finally{button.disabled=false}};
+let finishing=false;
+function showMeetingEnded(hostEnded=false){
+ if(finishing)return;finishing=true;
+ room?.disconnect();connection.textContent='Meeting ended';
+ document.getElementById('controls').classList.add('hidden');
+ document.getElementById('app').classList.add('hidden');
+ document.getElementById('failure').classList.add('hidden');
+ document.getElementById('endTitle').textContent=hostEnded?'Meeting ended':'You left the meeting';
+ document.getElementById('endMessage').textContent=hostEnded?'This SDA meeting has ended for everyone. Thank you for bringing the community together.':'You have left the meeting. You can return to SDA whenever you are ready.';
+ document.getElementById('endScreen').classList.remove('hidden');
+}
+async function leave(end=false){
+ const action=end&&isHost?'end':'leave';
+ const button=end?document.getElementById('end'):document.getElementById('leave');
+ if(button)button.disabled=true;
+ try{
+  const response=await fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action,meetingId})});
+  if(!response.ok){let detail='';try{const body=await response.json();detail=body.error||''}catch{}throw new Error(detail||'Could not update the meeting. Please try again.')}
+  showMeetingEnded(end);
+ }catch(e){if(button)button.disabled=false;alert(e?.message||'Could not leave the meeting. Please try again.')}
+}
+function returnToSda(){
+ const message=JSON.stringify({type:'SDA_MEETING_RETURN'});
+ if(window.ReactNativeWebView&&window.ReactNativeWebView.postMessage){window.ReactNativeWebView.postMessage(message);return;}
+ const returnUrl=q.get('returnUrl');
+ if(returnUrl){location.href=returnUrl;return;}
+ window.close();
+ document.getElementById('endMessage').textContent='You can close this browser tab to return to SDA.';
+}
+function updateControl(button,enabled,onLabel,offLabel,enabledIcon,disabledIcon){
+ button.classList.toggle('active',enabled);button.setAttribute('aria-pressed',String(enabled));
+ button.setAttribute('aria-label',enabled?offLabel:onLabel);
+ button.querySelector('.control-label').textContent=enabled?offLabel:onLabel;
+ button.querySelector('svg').innerHTML=enabled?enabledIcon:disabledIcon;
+}
+document.getElementById('mic').onclick=async()=>{const button=document.getElementById('mic');button.disabled=true;try{const next=!micOn;await room.localParticipant.setMicrophoneEnabled(next);micOn=next;updateControl(button,micOn,'Unmute','Mute',
+ '<path d="M12 2.75a3.25 3.25 0 0 0-3.25 3.25v5a3.25 3.25 0 0 0 6.5 0V6A3.25 3.25 0 0 0 12 2.75Z"/><path d="M5.5 10.5v.5a6.5 6.5 0 0 0 13 0v-.5M12 17.5v4M8.5 21.5h7"/>',
+ '<path d="M9 9v2a3 3 0 0 0 5.2 2.05M15 9V6a3 3 0 0 0-5.9-.75M5.5 10.5v.5a6.5 6.5 0 0 0 11.1 4.6M12 17.5v4M8.5 21.5h7M3 3l18 18"/>');renderPeople()}catch(e){alert('Could not '+(micOn?'mute':'unmute')+' your microphone. Check that SDA has microphone permission, then try again.\n\n'+(e?.message||e))}finally{button.disabled=false}};
+document.getElementById('camera').onclick=async()=>{const button=document.getElementById('camera');button.disabled=true;try{const next=!cameraOn;await room.localParticipant.setCameraEnabled(next);cameraOn=next;updateControl(button,cameraOn,'Start video','Stop video',
+ '<rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3z"/>',
+ '<rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3zM3 3l18 18"/>');renderPeople()}catch(e){alert('Could not '+(cameraOn?'stop':'start')+' your camera. Check that SDA has camera permission, then try again.\n\n'+(e?.message||e))}finally{button.disabled=false}};
 document.getElementById('leave').onclick=()=>leave(false);
 document.getElementById('end').onclick=()=>{if(confirm('End this meeting for everyone?'))leave(true)};
+document.getElementById('backToSda').onclick=returnToSda;
 async function start(){
  if(!token||!serverUrl||!roomName||!api||!supabaseUrl||!anon)throw Error('The meeting link is incomplete or expired. Return to SDA and join again.');
  room=new Room({adaptiveStream:true,dynacast:true});
@@ -60,6 +120,7 @@ async function start(){
  room.on(RoomEvent.LocalTrackUnpublished,(publication,participant)=>{if(publication.track){publication.track.detach().forEach(n=>n.remove());if(publication.kind==='video'){const el=document.getElementById('tile-'+participant.identity);if(el){el.querySelector('video')?.remove();el.classList.remove('has-video');}}}});
  room.on(RoomEvent.TrackUnsubscribed,(track)=>track.detach().forEach(n=>n.remove()));
  room.on(RoomEvent.ParticipantConnected,renderPeople);room.on(RoomEvent.ParticipantDisconnected,p=>{document.getElementById('tile-'+p.identity)?.remove();renderPeople()});
+  room.on(RoomEvent.Disconnected,()=>{if(!finishing)showMeetingEnded(false)});
  room.on(RoomEvent.TrackMuted,renderPeople);room.on(RoomEvent.TrackUnmuted,renderPeople);room.on(RoomEvent.DataReceived,async(payload,participant)=>{try{const msg=JSON.parse(new TextDecoder().decode(payload));if(msg.type==='sda-unmute-request'&&!isHost){if(confirm('The host is requesting you to unmute. Allow your microphone?')){await room.localParticipant.setMicrophoneEnabled(true);micOn=true;document.getElementById('mic').textContent='🎙 Mute';renderPeople()}}}catch{}});
  await room.connect(serverUrl,token);setInterval(()=>{fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'heartbeat',meetingId})}).catch(()=>{})},30000);
  tile(room.localParticipant.identity,room.localParticipant.name||'You',true);
