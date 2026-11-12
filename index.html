@@ -215,6 +215,8 @@ const bibleBooks=[["Genesis", 50], ["Exodus", 40], ["Leviticus", 27], ["Numbers"
 function initBiblePickers(){bibleBookSelect.innerHTML=bibleBooks.map(([name])=>`<option value="${name}">${name}</option>`).join('');bibleBookSelect.value=bibleBook;populateBibleChapters();populateBibleVerses()}
 function populateBibleChapters(){const book=bibleBooks.find(([name])=>name===bibleBook);const count=book?.[1]||1;bibleChapterSelect.innerHTML=Array.from({length:count},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join('');bibleChapterSelect.value=String(Math.min(bibleChapter,count))}
 function populateBibleVerses(){const total=bibleVerses.length;const current=Number(bibleVerses[bibleIndex]?.verse||1);bibleVerseSelect.min='1';bibleVerseSelect.max=String(total||1);bibleVerseSelect.value=String(current);bibleVerseSelect.placeholder=total?`1–${total}`:'Verse'}
+// Populate the native book and chapter selectors before the user can interact with them.
+initBiblePickers();
 function parseBibleReference(reference){const m=String(reference||'').trim().match(/^(.+?)\\s+(\\d+)(?::(\\d+))?$/);if(!m)throw Error('Choose a valid Bible reference.');return{book:m[1].trim(),chapter:Number(m[2]),verse:Number(m[3]||1)}}
 function bibleReferenceText(){return `${bibleBook} ${bibleChapter}:${bibleVerses[bibleIndex]?.verse||1}`}
 function updateBibleNavigation(){const ref=bibleReferenceText();bibleCurrentLabel.textContent=ref;bibleVersionLabel.textContent=bibleTranslation.toUpperCase();biblePrevious.disabled=!bibleVerses.length;bibleNext.disabled=!bibleVerses.length;bibleBookSelect.value=bibleBook;bibleChapterSelect.value=String(bibleChapter);populateBibleVerses()}
