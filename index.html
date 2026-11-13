@@ -12,6 +12,22 @@ main{max-width:980px;margin:0 auto;padding:25px clamp(14px,3vw,30px) 34px}.meeti
 .bible-panel{position:fixed;left:50%;transform:translateX(-50%);bottom:112px;width:min(760px,calc(100% - 24px));max-height:min(72vh,680px);z-index:45;display:flex;flex-direction:column;background:linear-gradient(145deg,#21192f,#100e18);border:1px solid #4a365f;border-radius:22px;box-shadow:0 24px 80px #000b;overflow:hidden}.bible-panel.hidden{display:none!important}.bible-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border-bottom:1px solid #3a2d4b}.bible-heading{font-size:14px;font-weight:900}.bible-subheading{font-size:9px;color:var(--muted);margin-top:4px}.bible-close{width:34px;height:34px;border:1px solid #493b5a;border-radius:11px;background:#292333;color:#eee;font-size:18px}.bible-tools{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;padding:12px 14px;border-bottom:1px solid #30263f}.bible-reference-row{display:flex;gap:7px;min-width:0}.bible-input,.bible-select{min-width:0;width:100%;height:40px;padding:0 11px;border:1px solid #493b5a;border-radius:11px;background:#171321;color:#f8f6fc;font:inherit;font-size:11px;outline:none}.bible-select{width:auto;max-width:112px}.bible-action{border:1px solid #8f5bc7;border-radius:11px;background:linear-gradient(110deg,#8b3dff,#6e32c8);color:white;font-size:10px;font-weight:850;padding:0 13px;white-space:nowrap}.bible-sync{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 15px;background:#171321;color:#bcaed0;font-size:9px}.bible-sync strong{color:#c9a5ff}.bible-content{overflow:auto;padding:8px 15px 14px;overscroll-behavior:contain}.bible-verse{display:flex;gap:11px;padding:11px 9px;border-bottom:1px solid #2d2638;border-radius:9px;cursor:pointer}.bible-verse.current{background:#332247;border:1px solid #67468a}.bible-verse-number{flex:0 0 23px;color:#bda0e4;font-size:10px;font-weight:900;padding-top:2px}.bible-verse-text{color:#e9e3f1;font-size:12px;line-height:1.75}.bible-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-top:1px solid #3a2d4b;background:#171321}.bible-nav button{min-height:36px;border:1px solid #493b5a;border-radius:10px;background:#292333;color:#eee;font-size:10px;font-weight:800;padding:0 12px}.bible-nav button:disabled{opacity:.35}.bible-current{font-size:10px;color:#d9c8ed;font-weight:850;text-align:center}.bible-message{padding:25px 12px;text-align:center;color:var(--muted);font-size:11px;line-height:1.6}.audio-unlock{position:fixed;z-index:35;top:78px;left:50%;transform:translateX(-50%);border:1px solid #9b73c7;border-radius:999px;padding:11px 16px;background:#2b1c3d;color:#fff;font-size:11px;font-weight:800;box-shadow:0 8px 28px #0008}.audio-unlock.hidden{display:none!important}.sda-remote-audio{pointer-events:none}
 @media(max-width:600px){header{height:62px}main{padding:18px 13px 25px}.meeting-viewport{gap:14px}.room-heading h1{font-size:23px}.stage-shell{padding:8px;border-radius:18px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{min-height:155px;aspect-ratio:4/4.8;border-radius:15px}.avatar{width:54px;height:54px;border-radius:18px;font-size:19px}.name{font-size:10px;padding:25px 9px 10px}.panel{padding:14px}.controls{gap:clamp(8px,3vw,17px);padding:10px 8px max(14px,env(safe-area-inset-bottom))}.control{min-width:0;flex:1;gap:5px}.control .control-icon{width:49px;height:49px;border-radius:17px}.control .control-label{font-size:9px}.bible-panel{bottom:104px;width:calc(100% - 14px);max-height:76vh;border-radius:18px}.bible-tools{grid-template-columns:1fr;gap:7px}.bible-select{width:100%;max-width:none}.bible-input{flex:1}.bible-action{min-width:58px}.scripture-card{padding:13px}.scripture-text{max-width:235px}}
 @media(min-width:900px){.grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}.tile{min-height:245px}}
+
+/* Live participant states */
+.tile.is-speaking{border:1.5px solid #c084fc;box-shadow:0 0 0 2px rgba(192,132,252,.22),0 0 28px rgba(168,85,247,.28)}
+.tile.is-speaking .avatar{box-shadow:0 0 0 3px rgba(192,132,252,.35),0 0 24px rgba(168,85,247,.48)}
+.tile-speaking{position:absolute;left:11px;bottom:43px;z-index:3;display:none;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;background:rgba(91,33,182,.88);border:1px solid rgba(216,180,254,.55);color:#f3e8ff;font-size:9px;font-weight:900;letter-spacing:.04em}
+.tile.is-speaking .tile-speaking{display:flex}
+.speaking-dot{width:6px;height:6px;border-radius:50%;background:#d8b4fe;box-shadow:0 0 9px #d8b4fe;animation:speakingPulse .85s infinite alternate}
+@keyframes speakingPulse{to{opacity:.35;transform:scale(.75)}}
+.tile .tile-mic{display:none}
+.tile.is-muted .tile-mic{display:grid;background:rgba(127,29,29,.8);border:1px solid rgba(248,113,113,.65);color:#fecaca;box-shadow:0 4px 14px #0007}
+.person-status-line{display:flex;align-items:center;gap:7px}
+.person-mic-muted{display:inline-flex;align-items:center;gap:4px;color:#fca5a5;font-size:9px;font-weight:850}
+.person-mic-live{color:#86efac;font-size:9px;font-weight:800}
+.invite-actions{display:flex;gap:8px;margin-top:13px}
+.invite-actions button{flex:1;min-height:40px;padding:9px 12px;border-radius:11px;border:1px solid rgba(192,132,252,.35);background:linear-gradient(110deg,rgba(124,58,237,.28),rgba(79,70,229,.2));color:#eadcff;font-size:10px;font-weight:850}
+.invite-actions button.secondary{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.12);color:#ddd6e8}
 </style></head><body><header>
  <div class="brand-wrap"><div class="brand-mark"><span>✝</span></div><div class="brand">SDA <span>MEETINGS</span></div></div>
  <div class="status" id="connection">Connecting…</div>
@@ -27,7 +43,7 @@ main{max-width:980px;margin:0 auto;padding:25px clamp(14px,3vw,30px) 34px}.meeti
    <div><div class="scripture-label">▤ &nbsp; Live Scripture Study</div><div class="scripture-ref"><span id="scriptureReference">John 3:16</span> <span id="scriptureVersion">(KJV)</span></div><div class="scripture-text" id="scripturePreview">Open Live Bible to read and share a passage with everyone in this meeting.</div></div>
    <button class="read-bible" id="readBible" type="button">Read&nbsp; ›</button>
   </section>
-  <section class="panel"><div class="panel-head"><h2>People in this meeting</h2><span class="small" id="peopleLabel">SDA MEMBERS</span></div><div id="people"></div></section>
+  <section class="panel"><div class="panel-head"><h2>People in this meeting</h2><span class="small" id="peopleLabel">SDA MEMBERS</span></div><div id="people"></div><div class="invite-actions"><button id="inviteMembers" type="button">＋ Invite SDA members</button><button id="copyMeetingCode" class="secondary" type="button">Copy meeting code</button></div></section>
  </div>
 </main>
 <div id="failure" class="error hidden"><h2>Unable to join this meeting</h2><p class="muted" id="failureText">The meeting link may have expired.</p><button onclick="location.reload()" class="read-bible">Try again</button></div>
@@ -60,7 +76,7 @@ document.getElementById('meetingTitle').textContent=title;
 document.getElementById('meetingMeta').textContent=isHost?'You are the host · Only host video is enabled':'SDA members · Audio participation';
 document.getElementById('camera').classList.toggle('hidden',!isHost);
 document.getElementById('end').classList.toggle('hidden',!isHost);
-function tile(identity,name,local=false){let el=document.getElementById('tile-'+identity);if(!el){el=document.createElement('div');el.className='tile';el.id='tile-'+identity;el.innerHTML=`<div class="avatar">${(name||'S').trim().charAt(0).toUpperCase()}</div><div class="you">${local?'You · Host':'SDA Member'}</div><div class="tile-mic" aria-label="Microphone status">⌁</div><div class="name"></div>`;grid.append(el)}el.querySelector('.name').textContent=(name||identity)+(local?' · You':'');return el}
+function tile(identity,name,local=false){let el=document.getElementById('tile-'+identity);if(!el){el=document.createElement('div');el.className='tile';el.id='tile-'+identity;el.innerHTML=`<div class="avatar">${(name||'S').trim().charAt(0).toUpperCase()}</div><div class="you">${local?'You · Host':'SDA Member'}</div><div class="tile-mic" aria-label="Muted" title="Microphone muted">⌁</div><div class="tile-speaking"><span class="speaking-dot"></span> SPEAKING</div><div class="name"></div>`;grid.append(el)}el.querySelector('.name').textContent=(name||identity)+(local?' · You':'');return el}
 const attachedTrackNodes=new WeakMap();
 function showAudioUnlock(){const prompt=document.getElementById('audioUnlock');if(prompt)prompt.classList.remove('hidden')}
 function hideAudioUnlock(){const prompt=document.getElementById('audioUnlock');if(prompt)prompt.classList.add('hidden')}
@@ -85,7 +101,54 @@ function addTrack(track,identity,name,local=false){
   const play=node.play?.();if(play?.catch)play.catch(()=>showAudioUnlock());
  }
 }
-function renderPeople(){people.innerHTML='';const participants=[room.localParticipant,...room.remoteParticipants.values()];document.getElementById('count').textContent=participants.length+' participants';document.getElementById('peopleLabel').textContent='SDA MEMBERS ('+participants.length+')';participants.forEach(p=>{const row=document.createElement('div');row.className='person';const label=document.createElement('div');label.innerHTML=`<div class="person-avatar"></div><div><strong></strong><div class="person-status"></div></div>`;label.querySelector('.person-avatar').textContent=(p.name||p.identity||'S').trim().charAt(0).toUpperCase();label.querySelector('strong').textContent=p.name||p.identity;label.querySelector('.person-status').textContent=(p.identity===room.localParticipant.identity?'You':'SDA member')+' · '+(p.isMicrophoneEnabled?'Mic on':'Muted');row.append(label);if(isHost&&p.identity!==room.localParticipant.identity){const actions=document.createElement('div');actions.className='person-actions';const b=document.createElement('button');b.textContent='Mute';b.onclick=()=>muteParticipant(p.identity);const req=document.createElement('button');req.textContent='Request unmute';req.onclick=()=>requestUnmute(p.identity);actions.append(b,req);row.append(actions)}people.append(row)})}
+function participantMuted(p){
+ const pubs=[...p.trackPublications.values()];
+ const audio=pubs.find(pub=>pub.kind==='audio');
+ return !p.isMicrophoneEnabled || (audio ? (audio.isMuted===true || audio.track?.isMuted===true) : !p.isMicrophoneEnabled);
+}
+function updateParticipantVisual(p){
+ const el=tile(p.identity,p.name||p.identity,p.identity===room.localParticipant.identity);
+ const muted=participantMuted(p);
+ el.classList.toggle('is-muted',muted);
+ el.classList.toggle('is-speaking',activeSpeakerIds.has(p.identity)&&!muted);
+ const mic=el.querySelector('.tile-mic');
+ if(mic){mic.textContent='⌁';mic.title=muted?'Microphone muted':'Microphone on';mic.setAttribute('aria-label',muted?'Microphone muted':'Microphone on')}
+}
+let activeSpeakerIds=new Set();
+function updateSpeakerStates(speakers=[]){
+ activeSpeakerIds=new Set(speakers.map(p=>p.identity));
+ const participants=[room.localParticipant,...room.remoteParticipants.values()];
+ participants.forEach(updateParticipantVisual);
+ renderPeople();
+}
+function renderPeople(){
+ if(!room)return;
+ people.innerHTML='';
+ const participants=[room.localParticipant,...room.remoteParticipants.values()];
+ document.getElementById('count').textContent=participants.length+' participants';
+ document.getElementById('peopleLabel').textContent='SDA MEMBERS ('+participants.length+')';
+ participants.forEach(p=>{
+  const muted=participantMuted(p),speaking=activeSpeakerIds.has(p.identity)&&!muted;
+  const row=document.createElement('div');row.className='person';
+  const label=document.createElement('div');
+  label.innerHTML=`<div class="person-avatar"></div><div><strong></strong><div class="person-status"></div></div>`;
+  label.querySelector('.person-avatar').textContent=(p.name||p.identity||'S').trim().charAt(0).toUpperCase();
+  label.querySelector('strong').textContent=p.name||p.identity;
+  label.querySelector('.person-status').textContent=(p.identity===room.localParticipant.identity?'You':'SDA member')+' · '+(speaking?'Speaking':muted?'Muted':'Mic on');
+  row.append(label);
+  const state=document.createElement('span');
+  state.className=muted?'person-mic-muted':'person-mic-live';
+  state.textContent=muted?'● MIC MUTED':speaking?'● SPEAKING':'● MIC ON';
+  row.append(state);
+  if(isHost&&p.identity!==room.localParticipant.identity){
+   const actions=document.createElement('div');actions.className='person-actions';
+   const b=document.createElement('button');b.textContent='Mute';b.disabled=muted;b.onclick=()=>muteParticipant(p.identity);
+   const req=document.createElement('button');req.textContent='Request unmute';req.disabled=!muted;req.onclick=()=>requestUnmute(p.identity);
+   actions.append(b,req);row.append(actions);
+  }
+  people.append(row);
+ });
+}
 
 function showSdaDialog({title='SDA notice',message='',confirmText='Okay',cancelText='',danger=false}){
  const overlay=document.getElementById('sdaDialog');
@@ -149,6 +212,24 @@ document.getElementById('camera').onclick=async()=>{const button=document.getEle
  '<rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3zM3 3l18 18"/>');renderPeople()}catch(e){await showSdaNotice('Camera unavailable','Could not '+(cameraOn?'stop':'start')+' your camera. Check that SDA has camera permission, then try again.\n\n'+(e?.message||e))}finally{button.disabled=false}};
 document.getElementById('leave').onclick=()=>leave(false);
 document.getElementById('end').onclick=async()=>{const confirmed=await showSdaDialog({title:'End meeting for everyone?',message:'Everyone will be disconnected from this SDA meeting.',confirmText:'End meeting',cancelText:'Keep meeting',danger:true});if(confirmed)leave(true)};
+
+async function copyMeetingCode(){
+ const code=meetingId||roomName;
+ if(!code){await showSdaNotice('Meeting code unavailable','The meeting identifier was not provided.');return}
+ const text=`Join my SDA meeting: ${title}\nMeeting code: ${code}`;
+ try{await navigator.clipboard.writeText(text);await showSdaNotice('Meeting details copied','Share the meeting code with an SDA member. They can use it in the SDA app to join, if meeting-code joining is enabled.')}
+ catch{await showSdaNotice('Copy unavailable',text)}
+}
+document.getElementById('copyMeetingCode').onclick=copyMeetingCode;
+document.getElementById('inviteMembers').onclick=async()=>{
+ if(window.ReactNativeWebView?.postMessage){
+  window.ReactNativeWebView.postMessage(JSON.stringify({type:'SDA_MEETING_INVITE',meetingId,title,roomName}));
+  await showSdaNotice('Invite request sent','The meeting invite request was sent to the SDA app. The app must handle SDA_MEETING_INVITE to open the member picker and create a fresh join link for each invited member.');
+  return;
+ }
+ await copyMeetingCode();
+};
+
 document.getElementById('backToSda').onclick=returnToSda;
 document.getElementById('readBible').onclick=()=>openBiblePanel();
 
@@ -258,7 +339,7 @@ function applyIncomingBibleState(state){
 async function start(){
  if(!token||!serverUrl||!roomName||!api||!supabaseUrl||!anon)throw Error('The meeting link is incomplete or expired. Return to SDA and join again.');
  room=new Room({adaptiveStream:true,dynacast:true});
- room.on(RoomEvent.TrackSubscribed,(track,publication,participant)=>addTrack(track,participant.identity,participant.name||participant.identity));
+ room.on(RoomEvent.TrackSubscribed,(track,publication,participant)=>{addTrack(track,participant.identity,participant.name||participant.identity);updateParticipantVisual(participant);renderPeople()});
  // Remote tracks arrive through TrackSubscribed; the host's own camera is a
  // local track and must be attached separately to render its preview tile.
  room.on(RoomEvent.LocalTrackPublished,(publication,participant)=>{if(publication.track)addTrack(publication.track,participant.identity,participant.name||'You',true)});
@@ -267,9 +348,9 @@ async function start(){
  room.on(RoomEvent.ParticipantConnected,renderPeople);room.on(RoomEvent.ParticipantDisconnected,p=>{document.getElementById('tile-'+p.identity)?.remove();renderPeople()});
   room.on(RoomEvent.Disconnected,()=>{if(!finishing)showMeetingEnded(false)});
  room.on(RoomEvent.DataReceived,(payload)=>{try{const m=JSON.parse(new TextDecoder().decode(payload));if(m.type==='sda-bible-state'&&m.updatedBy!==room.localParticipant.identity)applyIncomingBibleState(m)}catch{}});
- room.on(RoomEvent.TrackMuted,renderPeople);room.on(RoomEvent.TrackUnmuted,renderPeople);room.on(RoomEvent.DataReceived,async(payload,participant)=>{try{const msg=JSON.parse(new TextDecoder().decode(payload));if(msg.type==='sda-unmute-request'&&!isHost){if(await showSdaDialog({title:'The host is requesting you to unmute',message:'Would you like to turn on your microphone?',confirmText:'Unmute microphone',cancelText:'Not now'})){await room.localParticipant.setMicrophoneEnabled(true);micOn=true;updateControl(document.getElementById('mic'),true,'Unmute','Mute','<path d="M12 2.75a3.25 3.25 0 0 0-3.25 3.25v5a3.25 3.25 0 0 0 6.5 0V6A3.25 3.25 0 0 0 12 2.75Z"/><path d="M5.5 10.5v.5a6.5 6.5 0 0 0 13 0v-.5M12 17.5v4M8.5 21.5h7"/>','<path d="M9 9v2a3 3 0 0 0 5.2 2.05M15 9V6a3 3 0 0 0-5.9-.75M5.5 10.5v.5a6.5 6.5 0 0 0 11.1 4.6M12 17.5v4M8.5 21.5h7M3 3l18 18"/>');renderPeople()}}}catch{}});
+ room.on(RoomEvent.ActiveSpeakersChanged,speakers=>updateSpeakerStates(speakers));room.on(RoomEvent.TrackMuted,()=>{renderPeople();[room.localParticipant,...room.remoteParticipants.values()].forEach(updateParticipantVisual)});room.on(RoomEvent.TrackUnmuted,()=>{renderPeople();[room.localParticipant,...room.remoteParticipants.values()].forEach(updateParticipantVisual)});room.on(RoomEvent.DataReceived,async(payload,participant)=>{try{const msg=JSON.parse(new TextDecoder().decode(payload));if(msg.type==='sda-unmute-request'&&!isHost){if(await showSdaDialog({title:'The host is requesting you to unmute',message:'Would you like to turn on your microphone?',confirmText:'Unmute microphone',cancelText:'Not now'})){await room.localParticipant.setMicrophoneEnabled(true);micOn=true;updateControl(document.getElementById('mic'),true,'Unmute','Mute','<path d="M12 2.75a3.25 3.25 0 0 0-3.25 3.25v5a3.25 3.25 0 0 0 6.5 0V6A3.25 3.25 0 0 0 12 2.75Z"/><path d="M5.5 10.5v.5a6.5 6.5 0 0 0 13 0v-.5M12 17.5v4M8.5 21.5h7"/>','<path d="M9 9v2a3 3 0 0 0 5.2 2.05M15 9V6a3 3 0 0 0-5.9-.75M5.5 10.5v.5a6.5 6.5 0 0 0 11.1 4.6M12 17.5v4M8.5 21.5h7M3 3l18 18"/>');renderPeople()}}}catch{}});
  await room.connect(serverUrl,token);setInterval(()=>{fetch(supabaseUrl+'/functions/v1/sda-meeting-token',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'heartbeat',meetingId})}).catch(()=>{})},30000);
- tile(room.localParticipant.identity,room.localParticipant.name||'You',true);
+ tile(room.localParticipant.identity,room.localParticipant.name||'You',true);updateParticipantVisual(room.localParticipant);
  for(const p of room.remoteParticipants.values())for(const pub of p.trackPublications.values())if(pub.track)addTrack(pub.track,p.identity,p.name||p.identity);
  app.classList.remove('hidden');controls.classList.remove('hidden');connection.textContent='● Connected';renderPeople();
  bibleApiAction('bible-get-state').then(d=>{if(d.bibleState?.reference)applyIncomingBibleState(d.bibleState)}).catch(()=>{});
