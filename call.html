@@ -1,16 +1,102 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090812"><title>SDA Call</title>
-<style>
-:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 8%,#321b4d 0,transparent 45%),#090812;color:#f8f6fc;font-family:Inter,system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:22px}.call{width:min(100%,560px);text-align:center}.brand{font-size:11px;letter-spacing:.18em;font-weight:900;color:#c4a1ff}.avatar{width:104px;height:104px;border-radius:32px;margin:52px auto 22px;display:grid;place-items:center;background:linear-gradient(145deg,#693a9d,#2b1b40);border:1px solid #9867c4;font-size:36px;font-weight:900;box-shadow:0 0 0 8px #8b5cf622}.title{font-size:27px;font-weight:850;letter-spacing:-.04em}.status{margin-top:9px;color:#b8abc9;font-size:13px}.video{display:none;width:100%;aspect-ratio:4/5;max-height:55vh;object-fit:cover;border-radius:24px;background:#171321;margin:24px auto;border:1px solid #49345f}.remote{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:22px;background:#171321;margin-top:18px}.controls{display:flex;justify-content:center;gap:18px;margin:58px auto 20px}.btn{width:62px;height:62px;border:1px solid #59466d;border-radius:22px;background:#292333;color:white;font-size:23px}.btn.end{background:#d83e5b;border-color:#f36a7f}.btn:disabled{opacity:.45}.hint{font-size:11px;color:#82778f;margin-top:22px}#error{color:#fda4af;margin-top:20px;white-space:pre-wrap}
-</style></head><body><main class="call"><div class="brand">SWORD DRILL ARENA · PRIVATE CALL</div><div class="avatar" id="avatar">SDA</div><div class="title" id="title">Connecting…</div><div class="status" id="status">Preparing secure call</div><video class="video" id="remoteVideo" autoplay playsinline></video><video class="video" id="localVideo" autoplay muted playsinline></video><div class="controls"><button class="btn" id="mic" aria-label="Mute microphone">🎙</button><button class="btn" id="camera" aria-label="Turn camera on">▣</button><button class="btn end" id="end" aria-label="End call">☎</button></div><div class="hint">Your call is private to the two SDA participants. This page works in SDA and in a normal web browser.</div><div id="error"></div></main>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080910">
+  <title>SDA Private Call</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080910;--panel:#11131e;--muted:#a6a8b8;--line:rgba(255,255,255,.09);--accent:#a78bfa;--accent2:#7c5ce7;--green:#20c879;--red:#f0445e}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:#f8f8fc}
+    body{min-height:100svh;overflow-x:hidden;background:radial-gradient(ellipse at 50% -12%,rgba(124,92,231,.25),transparent 48%),radial-gradient(ellipse at 100% 100%,rgba(57,35,101,.15),transparent 42%),#080910}
+    button{font:inherit}
+    .shell{width:min(100%,720px);min-height:100svh;margin:0 auto;padding:clamp(24px,5vh,54px) clamp(20px,5vw,40px) 28px;display:flex;flex-direction:column;align-items:center;position:relative}
+    .topline{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;color:#c8c4d8;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+    .secure-dot{width:7px;height:7px;border-radius:50%;background:#31d995;box-shadow:0 0 12px rgba(49,217,149,.75)}
+    .identity{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:clamp(48px,9vh,88px)}
+    .avatar-wrap{width:116px;height:116px;border-radius:50%;padding:3px;background:linear-gradient(145deg,rgba(196,181,253,.95),rgba(124,92,231,.28));box-shadow:0 0 0 9px rgba(167,139,250,.055),0 18px 55px rgba(0,0,0,.4);position:relative}
+    .avatar{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:linear-gradient(145deg,#30234d,#171523);font-size:36px;font-weight:750;color:#eee8ff;letter-spacing:-.04em}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .title{margin:28px 0 0;font-size:clamp(27px,5vw,36px);line-height:1.12;font-weight:750;letter-spacing:-.045em}
+    .status{margin-top:11px;color:var(--muted);font-size:14px;line-height:1.5}
+    .call-type{margin-top:20px;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.035);color:#d7d3e3;font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase}
+    .call-type svg{width:14px;height:14px;color:#bba7ff}
+    .media{width:100%;margin-top:34px;display:grid;gap:14px}
+    .video{display:none;width:100%;aspect-ratio:16/10;max-height:48vh;object-fit:cover;border-radius:24px;background:#11131e;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.25)}
+    .controls-wrap{margin-top:auto;width:100%;padding-top:clamp(38px,8vh,76px)}
+    .controls{display:flex;align-items:flex-start;justify-content:center;gap:clamp(28px,8vw,58px)}
+    .control{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:70px;color:#c4c3d0}
+    .btn{width:66px;height:66px;border-radius:50%;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.075);color:#f7f5ff;display:grid;place-items:center;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+    .btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.12)}
+    .btn:active{transform:scale(.96)}
+    .btn svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .btn.end{width:72px;height:72px;margin-top:-3px;background:linear-gradient(145deg,#ff526d,#d92f50);border-color:rgba(255,255,255,.18);box-shadow:0 10px 30px rgba(240,68,94,.25)}
+    .btn.end svg{width:28px;height:28px}
+    .btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+    .label{font-size:11px;font-weight:600;letter-spacing:.02em;color:#b7b5c5}
+    .hint{max-width:340px;margin:34px auto 0;text-align:center;color:#77798b;font-size:11px;line-height:1.65}
+    #error{color:#ff9eac;font-size:12px;line-height:1.5;text-align:center;margin-top:16px;white-space:pre-wrap}
+    .audio-pulse{display:flex;align-items:center;gap:4px;height:18px;margin-top:25px;opacity:.8}
+    .audio-pulse i{display:block;width:3px;border-radius:4px;background:#a78bfa;animation:wave 1s ease-in-out infinite alternate}
+    .audio-pulse i:nth-child(1){height:6px;animation-delay:-.4s}.audio-pulse i:nth-child(2){height:12px;animation-delay:-.15s}.audio-pulse i:nth-child(3){height:17px;animation-delay:-.55s}.audio-pulse i:nth-child(4){height:9px;animation-delay:-.25s}.audio-pulse i:nth-child(5){height:14px;animation-delay:-.65s}
+    @keyframes wave{to{transform:scaleY(.45);opacity:.55}}
+    @media(min-height:850px){.identity{margin-top:10vh}.controls-wrap{padding-top:9vh}}
+    @media(max-height:680px){.shell{padding-top:18px}.identity{margin-top:26px}.avatar-wrap{width:88px;height:88px}.title{margin-top:18px;font-size:26px}.controls-wrap{padding-top:28px}.btn{width:58px;height:58px}.btn.end{width:64px;height:64px}.hint{margin-top:20px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topline"><span class="secure-dot"></span><span>Private, encrypted connection</span></div>
+    <section class="identity" aria-live="polite">
+      <div class="avatar-wrap"><div class="avatar" id="avatar">SDA</div></div>
+      <h1 class="title" id="title">Connecting…</h1>
+      <div class="status" id="status">Preparing your call</div>
+      <div class="call-type" id="callType">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.8a15 15 0 0 0 4.7 4.7L15 13l5 2v4c0 1.1-.9 2-2 2C9.7 21 3 14.3 3 6c0-1.1.9-2 2-2Z"/></svg>
+        <span>Voice call</span>
+      </div>
+      <div class="audio-pulse" id="audioPulse" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    </section>
+    <section class="media" aria-label="Call video">
+      <video class="video" id="remoteVideo" autoplay playsinline></video>
+      <video class="video" id="localVideo" autoplay muted playsinline></video>
+    </section>
+    <section class="controls-wrap">
+      <div class="controls">
+        <div class="control"><button class="btn" id="mic" aria-label="Mute microphone" title="Mute microphone">
+          <svg id="micIcon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg>
+        </button><span class="label" id="micLabel">Mute</span></div>
+        <div class="control"><button class="btn end" id="end" aria-label="End call" title="End call">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 15.5c5.2-4.1 11.8-4.1 17 0l-2.1 4a1.5 1.5 0 0 1-1.8.7l-3-1a1.5 1.5 0 0 1-1-1.4v-1.2a13 13 0 0 0-3.2 0v1.2a1.5 1.5 0 0 1-1 1.4l-3 1a1.5 1.5 0 0 1-1.8-.7l-2.1-4Z"/></svg>
+        </button><span class="label">End call</span></div>
+        <div class="control" id="cameraControl" style="display:none"><button class="btn" id="camera" aria-label="Turn camera on" title="Turn camera on">
+          <svg id="cameraIcon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/></svg>
+        </button><span class="label" id="cameraLabel">Camera</span></div>
+      </div>
+      <div class="hint">This call is between you and the other SDA participant. You can mute your microphone or end the call at any time.</div>
+      <div id="error" role="alert"></div>
+    </section>
+  </main>
 <script type="module">
 import {Room,RoomEvent,Track} from 'https://esm.sh/livekit-client@2.15.6';
-const q=new URLSearchParams(location.hash.slice(1));const token=q.get('token'),serverUrl=q.get('serverUrl'),roomName=q.get('roomName'),callId=q.get('callId'),callType=q.get('callType')||'audio',api=q.get('api'),supabaseUrl=q.get('supabaseUrl'),anon=q.get('supabaseAnonKey');
+const q=new URLSearchParams(location.hash.slice(1));
+const token=q.get('token'),serverUrl=q.get('serverUrl'),roomName=q.get('roomName'),callId=q.get('callId'),callType=q.get('callType')||'audio',api=q.get('api'),supabaseUrl=q.get('supabaseUrl'),anon=q.get('supabaseAnonKey');
+const peerName=q.get('peerName')||'SDA member';
+const peerAvatar=q.get('peerAvatar')||'';
 const $=id=>document.getElementById(id);let room,micOn=true,cameraOn=false,finished=false;
-$('title').textContent=q.get('title')||'SDA Call';$('camera').style.display=callType==='video'?'block':'none';
-function fail(e){$('status').textContent='Could not connect';$('error').textContent=e?.message||String(e)}
-function attach(track,local=false){if(local&&track.kind!=='video')return;const el=document.createElement(track.kind==='video'?'video':'audio');el.autoplay=true;el.playsInline=true;if(local)el.muted=true;track.attach(el);if(track.kind==='video'){el.className='remote';$(local?'localVideo':'remoteVideo').replaceWith(el);el.id=local?'localVideo':'remoteVideo';el.style.display='block'}else{el.className='sda-audio';document.body.append(el)}}
+$('title').textContent=peerName;
+$('avatar').textContent=peerName.trim().charAt(0).toUpperCase()||'S';
+if(peerAvatar){try{const avatarUrl=new URL(peerAvatar);if(avatarUrl.protocol==='https:'){const img=document.createElement('img');img.src=avatarUrl.href;img.alt=peerName;img.referrerPolicy='no-referrer';img.onerror=()=>{img.remove();$('avatar').textContent=peerName.trim().charAt(0).toUpperCase()||'S'};$('avatar').replaceChildren(img)}}catch{ /* keep initials when avatar URL is invalid */ }}
+$('callType').querySelector('span').textContent=callType==='video'?'Video call':'Voice call';
+$('cameraControl').style.display=callType==='video'?'flex':'none';
+$('audioPulse').style.display=callType==='video'?'none':'flex';
+function fail(e){$('status').textContent='Unable to connect';$('error').textContent=e?.message||String(e)}
+function attach(track,local=false){if(local&&track.kind!=='video')return;const el=document.createElement(track.kind==='video'?'video':'audio');el.autoplay=true;el.playsInline=true;if(local)el.muted=true;track.attach(el);if(track.kind==='video'){el.className='video';$(local?'localVideo':'remoteVideo').replaceWith(el);el.id=local?'localVideo':'remoteVideo';el.style.display='block'}else{el.className='sda-audio';document.body.append(el)}}
 async function finish(){if(finished)return;finished=true;try{await fetch(supabaseUrl+'/functions/v1/sda-call-service',{method:'POST',headers:{'Content-Type':'application/json','apikey':anon,'Authorization':'Bearer '+api},body:JSON.stringify({action:'end',callId})})}catch{}room?.disconnect();window.ReactNativeWebView?.postMessage(JSON.stringify({type:'SDA_CALL_ENDED',callId}));$('status').textContent='Call ended';$('mic').disabled=true;$('camera').disabled=true;$('end').disabled=true;setTimeout(()=>{const m=JSON.stringify({type:'SDA_CALL_RETURN',callId});if(window.ReactNativeWebView?.postMessage)window.ReactNativeWebView.postMessage(m);else if(q.get('returnUrl'))location.href=q.get('returnUrl')},450)}
-async function start(){if(!token||!serverUrl||!roomName||!callId||!api||!supabaseUrl||!anon)throw Error('The call link is incomplete. Return to SDA and try again.');room=new Room({adaptiveStream:true,dynacast:true});room.on(RoomEvent.TrackSubscribed,(track)=>attach(track));room.on(RoomEvent.LocalTrackPublished,p=>{if(p.track?.kind==='video')attach(p.track,true)});room.on(RoomEvent.ParticipantConnected,()=>{$('status').textContent='Connected'});room.on(RoomEvent.ParticipantDisconnected,()=>{if(!finished){$('status').textContent='The other person left the call';finish()}});room.on(RoomEvent.Disconnected,()=>{if(!finished){finished=true;window.ReactNativeWebView?.postMessage(JSON.stringify({type:'SDA_CALL_ENDED',callId}));$('status').textContent='Call disconnected'}});await room.connect(serverUrl,token);window.ReactNativeWebView?.postMessage(JSON.stringify({type:'SDA_CALL_CONNECTED',callId}));await room.localParticipant.setMicrophoneEnabled(true);if(callType==='video'){$('status').textContent='Connected · turn on your camera when ready'}else $('status').textContent='Connected · waiting for the other person';$('mic').onclick=async()=>{micOn=!micOn;await room.localParticipant.setMicrophoneEnabled(micOn);$('mic').textContent=micOn?'🎙':'🔇'};$('camera').onclick=async()=>{cameraOn=!cameraOn;await room.localParticipant.setCameraEnabled(cameraOn);$('camera').textContent=cameraOn?'▣':'□'};$('end').onclick=finish;}
+async function start(){if(!token||!serverUrl||!roomName||!callId||!api||!supabaseUrl||!anon)throw Error('The call link is incomplete. Return to SDA and try again.');room=new Room({adaptiveStream:true,dynacast:true});room.on(RoomEvent.TrackSubscribed,(track)=>attach(track));room.on(RoomEvent.LocalTrackPublished,p=>{if(p.track?.kind==='video')attach(p.track,true)});room.on(RoomEvent.ParticipantConnected,()=>{$('status').textContent='Connected'});room.on(RoomEvent.ParticipantDisconnected,()=>{if(!finished){$('status').textContent='The other person left the call';finish()}});room.on(RoomEvent.Disconnected,()=>{if(!finished){finished=true;window.ReactNativeWebView?.postMessage(JSON.stringify({type:'SDA_CALL_ENDED',callId}));$('status').textContent='Call disconnected'}});await room.connect(serverUrl,token);window.ReactNativeWebView?.postMessage(JSON.stringify({type:'SDA_CALL_CONNECTED',callId}));await room.localParticipant.setMicrophoneEnabled(true);if(callType==='video')$('status').textContent='Connected · turn on your camera when ready';else $('status').textContent='Connected · waiting for the other person';$('mic').onclick=async()=>{micOn=!micOn;await room.localParticipant.setMicrophoneEnabled(micOn);$('mic').innerHTML=micOn?'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 3 18 18M9 9v3a3 3 0 0 0 5.1 2.1M15 9V5a3 3 0 0 0-5.8-1M5 10v2a7 7 0 0 0 12 4.9M12 19v3m-4 0h8"/></svg>';$('micLabel').textContent=micOn?'Mute':'Unmute';$('mic').setAttribute('aria-label',micOn?'Mute microphone':'Unmute microphone')};$('camera').onclick=async()=>{cameraOn=!cameraOn;await room.localParticipant.setCameraEnabled(cameraOn);$('cameraLabel').textContent=cameraOn?'Turn camera off':'Turn camera on';$('camera').setAttribute('aria-label',cameraOn?'Turn camera off':'Turn camera on')};$('end').onclick=finish;}
 start().catch(fail);
-</script></body></html>
+</script>
+</body>
+</html>
